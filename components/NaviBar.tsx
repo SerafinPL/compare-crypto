@@ -1,12 +1,14 @@
 'use client'
-
-
 import { useState } from "react";
+import Link from 'next/link';
 
 const NaviBar: React.FunctionComponent = () => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
+    const menuArray = ['Dashboard', 'Coin', 'Compare',];
+
+    const menuView = menuArray.map(el => <li key={`menuItem${el.toLocaleLowerCase()}`}><Link href={`/${el.toLocaleLowerCase()}`}>{el}</Link></li>)
 
     return (
         <div className="navbar bg-base-100">
@@ -15,37 +17,19 @@ const NaviBar: React.FunctionComponent = () => {
                     <div className="btn btn-ghost lg:hidden" onClick={() => setDropdownOpen(prev => !prev)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
-                    <ul className="menu menu-sm dropdown-content  mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52" onClick={() => setDropdownOpen(false)}>
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <a className="">Parent</a>
-                            <ul className="p-2">
-                                <li><a>Submenu1</a></li>
-                                <li><a>Submenu2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
+                    <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52" onClick={() => setDropdownOpen(false)}>
+                        {menuView}
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">Crypto Compare</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>Item 1</a></li>
-                    <li>
-                        <details>
-                            <summary>Parent</summary>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li><a>Item 3</a></li>
+                    {menuView}
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {/* <a className="btn ">Search</a> */}
             </div>
         </div>
 
