@@ -1,11 +1,9 @@
 
+## Compare Crypto
 
 
-## Getting Started
 
-This is a [Next.js](https://nextjs.org/) project together with [daisyUI](https://daisyui.com/) & [Next.js](https://axios-http.com/)
-
-##  Project Goal: Compare Crypto
+###  Project Goal: 
 
 Comparison of current cryptocurrency prices on 7 centralized cryptocurrency exchanges. Sorting, filtering, results.
 The project assumes the creation of URL paths to the generated views.
@@ -23,3 +21,7 @@ All three views with prices from all 7 exchanges.
 Visual features:
 Two light/dark themes,
 Intuitive interface,
+
+### Getting Started
+
+This is a [Next.js](https://nextjs.org/) project together with [daisyUI](https://daisyui.com/) & [Axios](https://axios-http.com/)

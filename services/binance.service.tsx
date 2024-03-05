@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const baseApi: {
     domain: string;
     bookTickers: string;
