@@ -1,7 +1,8 @@
-# compare-crypto
-cryptocurrency price comparison from several cryptocurrency exchanges
+## Getting Started
 
-Project Goal: Compare Crypto
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+##  Project Goal: Compare Crypto
 
 Comparison of current cryptocurrency prices on 7 centralized cryptocurrency exchanges. Sorting, filtering, results.
 The project assumes the creation of URL paths to the generated views.
