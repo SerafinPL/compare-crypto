@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { EventHandler, useState } from "react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -10,8 +10,15 @@ const NaviBar: React.FunctionComponent = () => {
 
     const menuArray = ['Dashboard', 'Coin', 'Compare',];
 
-    const menuView = menuArray.map(el => <li key={`menuItem${el.toLocaleLowerCase()}`}>
-        <Link href={`/${el.toLocaleLowerCase()}`} className={`link ${pathname === el.toLocaleLowerCase() ? 'active' : ''}`}>{el}</Link>
+    const clickCloseHandler = () =>{        
+        setDropdownOpen(false);
+    }
+
+    const menuView = menuArray.map(el => <li key={`menuItem${el.toLocaleLowerCase()}`} onClick={() => setDropdownOpen(false)}>
+        <a href={`/${el.toLocaleLowerCase()}`} className={`${pathname === el.toLocaleLowerCase() ? 'active' : ''}`}
+             onClick={clickCloseHandler}>
+            {el}             
+        </a>
     </li>)
 
     return (
