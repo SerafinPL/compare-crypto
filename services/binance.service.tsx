@@ -1,16 +1,31 @@
 import axios from "axios";
 
-export const coinList = ['BTC', 'ETH', 'PAXG', 'BCH', 'SOL',
-  'LTC', 'AVAX', 'ETC', 'INJ', 'TIA',
-  'ATOM', 'FIL', 'NEAR', 'OSMO', 'XNO',
-  'KAVA', 'STORJ', '1INCH', 'XRP', 'ONT', 'ALGO', 'ASTR', 'DAR', 'TRX', 'DOGE'];
 
-export const stringListT = coinList.map(el => el + 'USDT')
+const baseApi: {
+    domain: string;
+    bookTickers: string;
+    query: string;
+    symbols: string;
+  } = {
+    domain: 'https://api.binance.com/api/v3/',
+    bookTickers: 'ticker/bookTicker',
+    query:'?',
+    symbols:'symbols='
 
-export const getTradeInfo = (params) => {
-    let paramsToSend = ``;
+}
 
-    stringListT.forEach((param, index) => {
+
+export const coinList: string[] = ['BTC', 'ETH', 'PAXG', 'BCH', 'SOL',
+    'LTC', 'AVAX', 'ETC', 'INJ', 'TIA',
+    'ATOM', 'FIL', 'NEAR', 'OSMO', 'XNO',
+    'KAVA', 'STORJ', '1INCH', 'XRP', 'ONT', 'ALGO', 'ASTR', 'DAR', 'TRX', 'DOGE'];
+
+export const stringListT: string[] = coinList.map(el => el + 'USDT');
+
+export const getTradeInfo:() => any = () => {
+    let paramsToSend: string = ``;
+
+    stringListT.forEach((param: string, index: number) => {
         if (index === 0) {
             paramsToSend += `%22${param}%22`
         } else {
