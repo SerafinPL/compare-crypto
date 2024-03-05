@@ -4,14 +4,11 @@ import axios from "axios";
 const baseApi: {
     domain: string;
     bookTickers: string;
-    query: string;
-    symbols: string;
+    
   } = {
     domain: 'https://api.binance.com/api/v3/',
     bookTickers: 'ticker/bookTicker',
-    query:'?',
-    symbols:'symbols='
-
+    
 }
 
 
@@ -32,5 +29,5 @@ export const getTradeInfo:() => any = () => {
             paramsToSend += `,%22${param}%22`
         }
     })
-    return axios.get(`https://api.binance.com/api/v3/ticker/bookTicker?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
+    return axios.get(`${baseApi.domain}${baseApi.bookTickers}?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
 }
