@@ -1,9 +1,9 @@
-## Getting Started
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-Together with [daisyUI](https://daisyui.com/) & [Next.js](https://axios-http.com/)
+## Compare Crypto
 
-##  Project Goal: Compare Crypto
+
+
+###  Project Goal: 
 
 Comparison of current cryptocurrency prices on 7 centralized cryptocurrency exchanges. Sorting, filtering, results.
 The project assumes the creation of URL paths to the generated views.
@@ -21,3 +21,7 @@ All three views with prices from all 7 exchanges.
 Visual features:
 Two light/dark themes,
 Intuitive interface,
+
+### Getting Started
+
+This is a [Next.js](https://nextjs.org/) project together with [daisyUI](https://daisyui.com/) & [Axios](https://axios-http.com/)

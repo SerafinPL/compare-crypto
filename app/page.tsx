@@ -1,11 +1,12 @@
 import { SimpleButton } from "@/components/simpleButon";
-
-
+import NaviBar from "@/components/NaviBar";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SimpleButton/>
-    </main>
+    <div className="min-w-full min-h-screen	">
+      <NaviBar/>      
+      <SimpleButton />
+    </div>
+
   );
 }
