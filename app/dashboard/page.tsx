@@ -1,7 +1,9 @@
 import { SimpleButton } from "@/components/simpleButon";
 
-export default function Dashboard() {
+const Dashboard: React.FunctionComponent = () => {
   return (
     <SimpleButton />
   );
 }
+
+export default Dashboard

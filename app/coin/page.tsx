@@ -1,7 +1,9 @@
 import { SimpleButton } from "@/components/simpleButon";
 
-export default function Coin() {
+const  Coin: React.FunctionComponent = () =>  {
   return (
     <SimpleButton />
   );
 }
+
+export default Coin
