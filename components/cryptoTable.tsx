@@ -1,5 +1,5 @@
 
-import { SymbolsContextType, SymbolContext } from "@/context/binanceContext";
+import { SymbolsContextType, SymbolContext } from "@/context/symbolsContext";
 
 const CryptoTable: React.FunctionComponent = () => {
   
