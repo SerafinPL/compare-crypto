@@ -1,8 +1,11 @@
-import { SimpleButton } from "@/components/simpleButon";
+import CryptoTable from "@/components/cryptoTable";
+
 
 const Dashboard: React.FunctionComponent = () => {
-  return (
-    <SimpleButton />
+  return (<div>
+    <CryptoTable />
+  </div>
+
   );
 }
 

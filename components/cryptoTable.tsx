@@ -1,7 +1,15 @@
 
+
+
 const CryptoTable: React.FunctionComponent = () => {
+
+
+  
+
+
     return (
         <div className="min-w-full min-h-screen	">
+
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>

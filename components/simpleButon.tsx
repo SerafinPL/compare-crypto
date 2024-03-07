@@ -1,12 +1,11 @@
+'use client';
 
-'use client'
 
-
-import { getTradeInfo } from "@/services/binance.service";
+import { getTradeInfo, getSymbolsInfo } from "@/services/binance.service";
 import { MouseEventHandler } from "react";
 
 
-const onClickHandler:MouseEventHandler = () => getTradeInfo().then((res: any) => console.log(res));
+const onClickHandler:MouseEventHandler = () => getSymbolsInfo().then((res: any) => console.log(res));
 
 export const SimpleButton: React.FunctionComponent<{}> = ({ }) => (
     <div>
