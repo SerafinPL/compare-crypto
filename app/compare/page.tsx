@@ -1,7 +1,9 @@
 import { SimpleButton } from "@/components/simpleButon";
 
-export default function Compare() {
+const Compare: React.FunctionComponent = () => {
   return (
     <SimpleButton />
   );
 }
+
+export default Compare

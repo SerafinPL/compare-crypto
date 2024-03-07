@@ -1,7 +1,12 @@
-import { SimpleButton } from "@/components/simpleButon";
+import CryptoTable from "@/components/cryptoTable";
 
-export default function Dashboard() {
-  return (
-    <SimpleButton />
+
+const Dashboard: React.FunctionComponent = () => {
+  return (<div>
+    <CryptoTable />
+  </div>
+
   );
 }
+
+export default Dashboard

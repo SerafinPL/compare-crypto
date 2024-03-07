@@ -1,12 +1,13 @@
 import { SimpleButton } from "@/components/simpleButon";
-import NaviBar from "@/components/NaviBar";
 
-export default function Home() {
+const Home: React.FunctionComponent = () => {
   return (
     <div className="min-w-full min-h-screen	">
-      <NaviBar/>      
+      
       <SimpleButton />
     </div>
 
   );
 }
+
+export default Home
