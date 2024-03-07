@@ -3,11 +3,12 @@ import axios from "axios";
 const baseApi: {
     domain: string;
     bookTickers: string;
+    convert: string;
     info: string;
-
 } = {
     domain: 'https://api.binance.com/api/v3/',
     bookTickers: 'ticker/bookTicker',
+    convert:'convert/',
     info: 'exchangeInfo',
 }
 
@@ -48,7 +49,6 @@ const setBinanceSymbols: (data: { quoteAsset: string, baseAsset: string }[]) => 
     const listBase: listKey = {};
 
     data.forEach(rec => {
-        console.log(rec)
         const keyQuote: string = rec.quoteAsset;
         const keyBase: string = rec.baseAsset;
         listQuote[keyQuote] = true;
