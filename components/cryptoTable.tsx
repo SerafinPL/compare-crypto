@@ -1,12 +1,8 @@
 
-
+import { SymbolsContextType, SymbolContext } from "@/context/binanceContext";
 
 const CryptoTable: React.FunctionComponent = () => {
-
-
   
-
-
     return (
         <div className="min-w-full min-h-screen	">
 
