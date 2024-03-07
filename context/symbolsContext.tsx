@@ -16,6 +16,8 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const [loading, setLoading] = useState<number>(0);
 
+    const [symbolList, setSymbolList] = useState<{}>({});
+
     useEffect(() => {
         getSymbolsFromBinance().then((res: {}[]) => {
             setLoading(prev => (prev + 50))

@@ -1,11 +1,18 @@
+'use client'
 
-import { SymbolsContextType, SymbolContext } from "@/context/symbolsContext";
+import { useContext } from "react";
+
+import { SymbolContext } from "@/context/symbolsContext";
 
 const CryptoTable: React.FunctionComponent = () => {
+
+    let context = useContext(SymbolContext);
+
+    
   
     return (
         <div className="min-w-full min-h-screen	">
-
+            <div className="radial-progress bg-primary text-primary-content border-4 border-primary" style={{"--value":context?.loading}} role="progressbar">{context?.loading}%</div>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
