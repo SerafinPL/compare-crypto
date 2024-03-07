@@ -33,7 +33,7 @@ export const getTradeInfo: () => any = () => {
     return axios.get(`${baseApi.domain}${baseApi.bookTickers}?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
 }
 
-export const getSymbolsInfo: () => any = () => {
+export const getSymbolsFromBinance: () => any = () => {
 
     return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => res.data.symbols, err => console.log);
 }
