@@ -42,16 +42,12 @@ interface listKey {
     [key: string]: boolean;
 }
 
-const setBinanceSymbols: (data:any) => {listQuote: listKey, listBase: listKey} = ( data ) =>{
+const setBinanceSymbols: (data: { quoteAsset: string, baseAsset: string }[]) => { listQuote: listKey, listBase: listKey } = (data) => {
 
     const listQuote: listKey = {};
     const listBase: listKey = {};
 
-   
-    
-
     data.forEach(rec => {
-
         console.log(rec)
         const keyQuote: string = rec.quoteAsset;
         const keyBase: string = rec.baseAsset;
@@ -59,5 +55,5 @@ const setBinanceSymbols: (data:any) => {listQuote: listKey, listBase: listKey} =
         listBase[keyBase] = true;
     })
 
-    return {listQuote, listBase}
+    return { listQuote, listBase }
 }
