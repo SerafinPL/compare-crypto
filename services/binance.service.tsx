@@ -41,23 +41,22 @@ export const getTradeInfo: () => any = () => {
 export const getSymbolsFromBinance: () => any = () => {
 
     return axios.get(`${baseApi.base}${baseApi.domainSApi}${baseApi.convert}${baseApi.info}`).then(res => {
-        console.log(res)
-        setBinanceSymbols(res.data)
+        return setBinanceSymbols(res.data)
     }, err => console.log);
 }
 
-interface listKey {
+export interface listKey {
     [key: string]: boolean;
 }
 
-const setBinanceSymbols: (data: { quoteAsset: string, baseAsset: string }[]) => { listQuote: listKey, listBase: listKey } = (data) => {
+const setBinanceSymbols: (data: { fromAsset: string, toAsset: string }[]) => { listQuote: listKey, listBase: listKey } = (data) => {
 
     const listQuote: listKey = {};
     const listBase: listKey = {};
 
     data.forEach(rec => {
-        const keyQuote: string = rec.quoteAsset;
-        const keyBase: string = rec.baseAsset;
+        const keyQuote: string = rec.toAsset;
+        const keyBase: string = rec.fromAsset;
         listQuote[keyQuote] = true;
         listBase[keyBase] = true;
     })

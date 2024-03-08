@@ -1,12 +1,16 @@
 'use client';
 
-import { getTradeInfo, getSymbolsFromBinance } from "@/services/binance.service";
+import { getTradeInfo, getSymbolsFromBinance, listKey } from "@/services/binance.service";
 import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
 
 import { createContext, useState, useEffect } from 'react';
 
 export type SymbolsContextType = {
     loading: number;
+};
+
+export type SymbolsObjectList = {
+    binance: listKey;
 };
 
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
@@ -19,11 +23,11 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     const [symbolList, setSymbolList] = useState<{}>({});
 
     useEffect(() => {
-        getSymbolsFromBinance().then((res: {}[]) => {
+        getSymbolsFromBinance().then((res: {}) => {
             setLoading(prev => (prev + 50))
             console.log(res)
         })
-        getSymbolsFromCoinBase().then((res: {}[]) => {
+        getSymbolsFromCoinBase().then((res: {}) => {
             setLoading(prev => (prev + 50))
             console.log(res)
         })
