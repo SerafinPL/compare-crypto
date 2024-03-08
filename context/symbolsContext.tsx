@@ -50,8 +50,6 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     useEffect(() => {
 
         const reqSymbolsList: any[] = [];
-        console.log({ symbolObj });
-
 
         getSymbolsFromBinance().then((res: { listBase: any; }) => {
 
