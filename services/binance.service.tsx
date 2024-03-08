@@ -1,14 +1,18 @@
 import axios from "axios";
 
 const baseApi: {
-    domain: string;
+    base:string;
+    domainSApi: string;
+    domainFApi: string;
     bookTickers: string;
     convert: string;
     info: string;
 } = {
-    domain: 'https://api.binance.com/api/v3/',
+    base: 'https://api.binance.com/',
+    domainFApi: 'api/v3/',
+    domainSApi: 'sapi/v1/',
     bookTickers: 'ticker/bookTicker',
-    convert:'convert/',
+    convert: 'convert/',
     info: 'exchangeInfo',
 }
 
@@ -31,12 +35,15 @@ export const getTradeInfo: () => any = () => {
             paramsToSend += `,%22${param}%22`
         }
     })
-    return axios.get(`${baseApi.domain}${baseApi.bookTickers}?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
+    return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.bookTickers}?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
 }
 
 export const getSymbolsFromBinance: () => any = () => {
 
-    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => setBinanceSymbols(res.data.symbols), err => console.log);
+    return axios.get(`${baseApi.base}${baseApi.domainSApi}${baseApi.convert}${baseApi.info}`).then(res => {
+        console.log(res)
+        setBinanceSymbols(res.data)
+    }, err => console.log);
 }
 
 interface listKey {
