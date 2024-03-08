@@ -23,7 +23,7 @@ export interface listKeyWithName {
 export type SymbolsContextType = {
     loading: number;
     symbolObj: SymbolsObjectList;
-    symbolList: {[key: string]: any;};
+    symbolList: { [key: string]: any; };
 };
 
 export type SymbolsObjectList = {
@@ -50,6 +50,8 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     useEffect(() => {
 
         const reqSymbolsList: any[] = [];
+        console.log({ symbolObj });
+
 
         getSymbolsFromBinance().then((res: { listBase: any; }) => {
 
@@ -67,8 +69,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     }, [])
 
     useEffect(() => {
-        console.log(remakeSymbolsToList());
-        console.log(symbolList);
+        remakeSymbolsToList();
     }, [symbolObj]);
 
     const addSymbols: (prev: SymbolsObjectList, newSym: listKey) => SymbolsObjectList = (prev, newSym) => {

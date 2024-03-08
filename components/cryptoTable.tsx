@@ -8,45 +8,46 @@ const CryptoTable: React.FunctionComponent = () => {
 
     let context = useContext(SymbolContext);
 
-    const loadingValue:number = context?.loading || 0;
-  
+    const loadingValue: number = context?.loading || 0;
+
+    const innerSymbolList = context?.symbolList || {};
+    const tableView = Object.keys(innerSymbolList).map((symbol, index) => {
+
+        return (
+            <tr>
+                <th>{++index}</th>
+                <td>{symbol}</td>
+                <td>{innerSymbolList[symbol].binance ? 'git': 'no'}</td>
+                <td>{innerSymbolList[symbol].coinbase ? 'git': 'no'}</td>
+            </tr>
+        )
+    });
     return (
         <div className="min-w-full min-h-screen	">
-            <div className="radial-progress bg-primary text-primary-content border-4 border-primary" style={{"--value":loadingValue}} role="progressbar">{context?.loading}%</div>
+            <div className="radial-progress bg-primary text-primary-content border-4 border-primary" style={{ "--value": loadingValue }} role="progressbar">{context?.loading}%</div>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>company</th>
-                            <th>location</th>
-                            <th>Last Login</th>
-                            <th>Favorite Color</th>
+                            <th>Binance</th>
+                            <th>CoinBase</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                            <td>Blue</td>
-                        </tr>
-
+                        {tableView}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>company</th>
-                            <th>location</th>
-                            <th>Last Login</th>
-                            <th>Favorite Color</th>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Binance</th>
+                                <th>CoinBase</th>
+
+                            </tr>
                         </tr>
                     </tfoot>
                 </table>
