@@ -7,46 +7,73 @@ import { SymbolContext } from "@/context/symbolsContext";
 const CryptoTable: React.FunctionComponent = () => {
 
     let context = useContext(SymbolContext);
+    const loadingValue: number = context?.loading || 0;
+    const innerSymbolList = context?.symbolList || {};
 
-    const loadingValue:number = context?.loading || 0;
-  
+    //** VIEW VARS**/
+
+    const okIco = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+    </svg>;
+
+    const nonIco = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>;
+
+    const tableView = Object.keys(innerSymbolList).map((symbol, index) => {
+
+        return (
+            <tr key={`cryptoRow${symbol}`}>
+                <th>{++index}</th>
+                <td>{symbol}</td>
+                <td>
+                    {innerSymbolList[symbol].binance ? okIco : nonIco}
+                </td>
+                <td>
+                    {innerSymbolList[symbol].coinbase ? okIco : nonIco}
+                </td>
+                <td>
+                    {innerSymbolList[symbol].gateio ? okIco : nonIco}
+                </td>
+            </tr>
+        )
+    });
+
     return (
         <div className="min-w-full min-h-screen	">
-            <div className="radial-progress bg-primary text-primary-content border-4 border-primary" style={{"--value":loadingValue}} role="progressbar">{context?.loading}%</div>
+
+            <div className="flex min-w-full p-3">
+                <div className="flex-none p-3">
+                    {context?.loading}%
+                </div>
+                <div className="flex-auto w-10/12 p-3">
+                    <progress className="progress progress-secondary " value={loadingValue} max="100"></progress>
+                </div>
+
+            </div>
+
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>company</th>
-                            <th>location</th>
-                            <th>Last Login</th>
-                            <th>Favorite Color</th>
+                            <th>Binance</th>
+                            <th>CoinBase</th>
+                            <th>GateIo</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                            <td>Blue</td>
-                        </tr>
-
+                        {tableView}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>company</th>
-                            <th>location</th>
-                            <th>Last Login</th>
-                            <th>Favorite Color</th>
+                            <th>Binance</th>
+                            <th>CoinBase</th>
+                            <th>GateIo</th>
                         </tr>
                     </tfoot>
                 </table>

@@ -11,7 +11,6 @@ import { MouseEventHandler } from "react";
 
 export const SimpleButton: React.FunctionComponent<{}> = ({ }) => {
     
-
     const onClickHandler:MouseEventHandler = () =>  {
         // console.log(context?.remakeSymbolsToList())
     }     //getSymbolsFromBinance().then((res: any) => console.log(res));

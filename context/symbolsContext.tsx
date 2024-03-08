@@ -2,6 +2,7 @@
 
 import { getSymbolsFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
+import { getSymbolsFromGateIo } from "@/services/gateio.service";
 
 import { createContext, useState, useEffect } from 'react';
 import axios from "axios";
@@ -23,7 +24,7 @@ export interface listKeyWithName {
 export type SymbolsContextType = {
     loading: number;
     symbolObj: SymbolsObjectList;
-    symbolList: {[key: string]: any;};
+    symbolList: { [key: string]: any; };
 };
 
 export type SymbolsObjectList = {
@@ -49,26 +50,34 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
     useEffect(() => {
 
+        
         const reqSymbolsList: any[] = [];
 
         getSymbolsFromBinance().then((res: { listBase: any; }) => {
 
             setSymbolObj(prev => addSymbols(prev, { binance: res.listBase }));
-            setLoading(prev => (prev + 50));
+            setLoading(prev => (prev + 15));
             return true;
         })
         getSymbolsFromCoinBase().then((res: { listBase: any }) => {
 
             setSymbolObj(prev => addSymbols(prev, { coinbase: res.listBase }));
-            setLoading(prev => (prev + 50));
+            setLoading(prev => (prev + 15));
             return true;
         })
+        getSymbolsFromGateIo().then((res: { listBase: any }) => {
+
+            setSymbolObj(prev => addSymbols(prev, { gateio: res.listBase }));
+            setLoading(prev => (prev + 15));
+            return true;
+        })
+        setLoading(prev => (prev + 5));
 
     }, [])
 
     useEffect(() => {
-        console.log(remakeSymbolsToList());
-        console.log(symbolList);
+        remakeSymbolsToList();
+        
     }, [symbolObj]);
 
     const addSymbols: (prev: SymbolsObjectList, newSym: listKey) => SymbolsObjectList = (prev, newSym) => {
