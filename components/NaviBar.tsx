@@ -10,25 +10,30 @@ const NaviBar: React.FunctionComponent = () => {
 
     const menuArray = ['Dashboard', 'Coin', 'Compare',];
 
-    const clickCloseHandler = () =>{        
+    const clickCloseHandler = () => {
         setDropdownOpen(false);
     }
 
-    const menuView = menuArray.map(el => <li key={`menuItem${el.toLocaleLowerCase()}`} onClick={() => setDropdownOpen(false)}>
-        <a href={`/${el.toLocaleLowerCase()}`} className={`${pathname === el.toLocaleLowerCase() ? 'active' : ''}`}
-             onClick={clickCloseHandler}>
-            {el}             
-        </a>
+    console.log();
+
+
+    const menuView = menuArray.map(el => <li key={`menuItem${el.toLowerCase()}`} onClick={() => setDropdownOpen(false)}>
+        <Link href={`/${el.toLowerCase()}`} className={`${pathname == el.toLowerCase() ? 'active' : ''}`}
+            onClick={clickCloseHandler}>
+            {el}
+        </Link>
     </li>)
 
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
+
                 <div className={`dropdown ${dropdownOpen ? 'dropdown-open' : ''}`}>
                     <div className="btn btn-ghost lg:hidden" onClick={() => setDropdownOpen(prev => !prev)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
-                    <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52" onClick={() => setDropdownOpen(false)}>
+
+                    <ul className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${dropdownOpen ? '' : 'hidden'}`} onClick={() => setDropdownOpen(false)}>
                         {menuView}
                     </ul>
                 </div>

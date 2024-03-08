@@ -1,13 +1,18 @@
 import axios from "axios";
-
+import { listKey } from "@/context/symbolsContext";
 const baseApi: {
-    domain: string;
+    base:string;
+    domainSApi: string;
+    domainFApi: string;
     bookTickers: string;
+    convert: string;
     info: string;
-
 } = {
-    domain: 'https://api.binance.com/api/v3/',
+    base: 'https://api.binance.com/',
+    domainFApi: 'api/v3/',
+    domainSApi: 'sapi/v1/',
     bookTickers: 'ticker/bookTicker',
+    convert: 'convert/',
     info: 'exchangeInfo',
 }
 
@@ -30,10 +35,28 @@ export const getTradeInfo: () => any = () => {
             paramsToSend += `,%22${param}%22`
         }
     })
-    return axios.get(`${baseApi.domain}${baseApi.bookTickers}?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
+    return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.bookTickers}?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
 }
 
-export const getSymbolsInfo: () => any = () => {
+export const getSymbolsFromBinance: () => any = () => {
 
-    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => res.data.symbols, err => console.log);
+    return axios.get(`${baseApi.base}${baseApi.domainSApi}${baseApi.convert}${baseApi.info}`).then(res => {
+        return setBinanceSymbols(res.data)
+    }, err => console.log);
+}
+
+
+const setBinanceSymbols: (data: { fromAsset: string, toAsset: string }[]) => { listQuote: listKey, listBase: listKey } = (data) => {
+
+    const listQuote: listKey = {};
+    const listBase: listKey = {};
+
+    data.forEach(rec => {
+        const keyQuote: string = rec.toAsset;
+        const keyBase: string = rec.fromAsset;
+        listQuote[keyQuote] = true;
+        listBase[keyBase] = true;
+    })
+
+    return { listQuote, listBase }
 }
