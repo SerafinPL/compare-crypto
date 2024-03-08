@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { listKey } from "@/context/symbolsContext";
 const baseApi: {
     base:string;
     domainSApi: string;
@@ -45,9 +45,6 @@ export const getSymbolsFromBinance: () => any = () => {
     }, err => console.log);
 }
 
-export interface listKey {
-    [key: string]: boolean;
-}
 
 const setBinanceSymbols: (data: { fromAsset: string, toAsset: string }[]) => { listQuote: listKey, listBase: listKey } = (data) => {
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { listKeyWithName } from "@/context/symbolsContext";
 
 const baseApi: {
     domain: string;
@@ -8,13 +9,20 @@ const baseApi: {
     info: 'currencies/crypto',
 }
 
-interface listKey {
-    [key: string]: boolean;
-}
-
-
 export const getSymbolsFromCoinBase: () => any = () => {
 
-    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => console.log(res.data), err => console.log);
+    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => setCoinBaseSymbols(res.data.data), err => console.log);
+}
+
+const setCoinBaseSymbols: (data: { code: string, name: string }[]) => {  listBase: listKeyWithName } = (data) => {
+
+    const listBase: listKeyWithName = {};
+
+    data.forEach(rec => {
+        const keyBase: string = rec.code;
+        listBase[keyBase] = rec.name;
+    })
+
+    return { listBase }
 }
 
