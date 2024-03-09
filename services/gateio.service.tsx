@@ -10,7 +10,11 @@ const baseApi: {
 }
 
 export const getSymbolsFromGateIo: () => any = () => {
-    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => setGateIoSymbols(res.data), err => console.log);
+    return axios.get(`${baseApi.domain}${baseApi.info}`, {
+        headers: {
+            'Access-Control-Allow-Origin': 'https://compare-crypto-v0.vercel.app'
+        },
+    }).then(res => setGateIoSymbols(res.data), err => console.log);
 }
 
 const setGateIoSymbols: (data: { buy_currency: string, sell_currency: string }[]) => { listBase: listKey } = (data) => {
