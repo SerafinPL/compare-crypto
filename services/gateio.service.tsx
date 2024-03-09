@@ -9,12 +9,18 @@ const baseApi: {
     info: 'flash_swap/currency_pairs',
 }
 
-export const getSymbolsFromGateIo: () => any = () => {
-    return axios.get(`${baseApi.domain}${baseApi.info}`, {
-        headers: {
-            'Access-Control-Allow-Origin': 'https://compare-crypto-v0.vercel.app'
-        },
-    }).then(res => setGateIoSymbols(res.data), err => console.log);
+export const getSymbolsFromGateIo: () => any = async () => {
+
+
+    const app = axios.create({
+        baseURL: baseApi.domain,
+
+
+    })
+
+
+    // axios.defaults.baseURL = baseApi.domain;
+    return app.get(baseApi.info).then(res => setGateIoSymbols(res.data), err => console.log);
 }
 
 const setGateIoSymbols: (data: { buy_currency: string, sell_currency: string }[]) => { listBase: listKey } = (data) => {
