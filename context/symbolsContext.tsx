@@ -56,22 +56,22 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         getSymbolsFromBinance().then((res: { listBase: any; }) => {
 
             setSymbolObj(prev => addSymbols(prev, { binance: res.listBase }));
-            setLoading(prev => (prev + 15));
+            setLoading(prev => (prev + 30));
             return true;
         })
         getSymbolsFromCoinBase().then((res: { listBase: any }) => {
 
             setSymbolObj(prev => addSymbols(prev, { coinbase: res.listBase }));
-            setLoading(prev => (prev + 15));
+            setLoading(prev => (prev + 30));
             return true;
         })
         getSymbolsFromGateIo().then((res: { listBase: any }) => {
 
             setSymbolObj(prev => addSymbols(prev, { gateio: res.listBase }));
-            setLoading(prev => (prev + 15));
+            setLoading(prev => (prev + 30));
             return true;
         })
-        setLoading(prev => (prev + 5));
+        setLoading(prev => (prev + 10));
 
     }, [])
 
