@@ -35,6 +35,9 @@ const CryptoTable: React.FunctionComponent = () => {
                 <td>
                     {innerSymbolList[symbol].gateio ? okIco : nonIco}
                 </td>
+                <td>
+                    {innerSymbolList[symbol].huobi ? okIco : nonIco}
+                </td>
             </tr>
         )
     });
@@ -61,7 +64,7 @@ const CryptoTable: React.FunctionComponent = () => {
                             <th>Binance</th>
                             <th>CoinBase</th>
                             <th>GateIo</th>
-
+                            <th>Huobi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,6 +77,7 @@ const CryptoTable: React.FunctionComponent = () => {
                             <th>Binance</th>
                             <th>CoinBase</th>
                             <th>GateIo</th>
+                            <th>Huobi</th>
                         </tr>
                     </tfoot>
                 </table>

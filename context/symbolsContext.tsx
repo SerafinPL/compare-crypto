@@ -3,6 +3,8 @@
 import { getSymbolsFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
 import { getSymbolsFromGateIo } from "@/services/gateio.service";
+import { getSymbolsFromHuobi } from "@/services/huobi.service"; 
+
 
 import { createContext, useState, useEffect } from 'react';
 import axios from "axios";
@@ -56,22 +58,30 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         getSymbolsFromBinance().then((res: { listBase: any; }) => {
 
             setSymbolObj(prev => addSymbols(prev, { binance: res.listBase }));
-            setLoading(prev => (prev + 30));
+            setLoading(prev => (prev + 20));
             return true;
         })
         getSymbolsFromCoinBase().then((res: { listBase: any }) => {
 
             setSymbolObj(prev => addSymbols(prev, { coinbase: res.listBase }));
-            setLoading(prev => (prev + 30));
+            setLoading(prev => (prev + 20));
             return true;
         })
         getSymbolsFromGateIo().then((res: { listBase: any }) => {
 
             setSymbolObj(prev => addSymbols(prev, { gateio: res.listBase }));
-            setLoading(prev => (prev + 30));
+            setLoading(prev => (prev + 20));
             return true;
         })
-        setLoading(prev => (prev + 10));
+        getSymbolsFromHuobi().then((res: { listBase: any }) => {
+
+            setSymbolObj(prev => addSymbols(prev, { huobi: res.listBase }));
+            console.log(res.listBase);
+            
+            setLoading(prev => (prev + 20));
+            return true;
+        })
+        setLoading(prev => (prev + 20));
 
     }, [])
 
