@@ -69,9 +69,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         getSomeSymbols(getSymbolsFromKraken,'kraken');
         getSomeSymbols(getSymbolsFromCryptoCom,'cryptocom');
         getSomeSymbols(getSymbolsFromOkx,'okx');
-
-
-        setLoading(prev => (prev + 16));
+        setLoading(prev => (prev + 4));
 
     }, [])
 
