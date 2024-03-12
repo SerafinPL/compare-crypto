@@ -8,8 +8,12 @@ const nextConfig = {
           destination: "https://api.gateio.ws/api/v4/flash_swap/currency_pairs",
         },
         {
-          source: "/ducks",
-          destination: "https://random-d.uk/api/random",
+          source: "/kucoin-currency_pairs",
+          destination: "https://api.kucoin.com/api/v2/symbols",
+        },
+        {
+          source: "/kraken-currency_pairs",
+          destination: "https://api.kucoin.com/api/v2/symbols",
         },
       ];
     },

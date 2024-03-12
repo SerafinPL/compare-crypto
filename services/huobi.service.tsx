@@ -19,7 +19,6 @@ const setHuobiSymbols: (data: { data: { qcdn: string, bcdn: string }[] }) => { l
 
     const listBase: listKey = {};
     const listQuote: listKey = {};
-    console.log(data);
 
     data.data.forEach(rec => {
         const keyBase: string = rec.bcdn;

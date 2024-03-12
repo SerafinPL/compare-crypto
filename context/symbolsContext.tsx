@@ -5,6 +5,9 @@ import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
 import { getSymbolsFromGateIo } from "@/services/gateio.service";
 import { getSymbolsFromHuobi } from "@/services/huobi.service";
 import { getSymbolsFromKuCoin } from "@/services/kucoin.service";
+import { getSymbolsFromKraken } from "@/services/kraken.service";
+import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
+import { getSymbolsFromOkx } from "@/services/okx.service";
 
 
 import { createContext, useState, useEffect } from 'react';
@@ -58,41 +61,17 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     useEffect(() => {
         const reqSymbolsList: any[] = [];
 
-        getSymbolsFromBinance().then((res: { listBase: any; }) => {
+        getSomeSymbols(getSymbolsFromBinance,'binance');
+        getSomeSymbols(getSymbolsFromCoinBase,'coinbase');
+        getSomeSymbols(getSymbolsFromGateIo,'gateio');
+        getSomeSymbols(getSymbolsFromHuobi,'huobi');
+        getSomeSymbols(getSymbolsFromKuCoin,'kucoin');
+        getSomeSymbols(getSymbolsFromKraken,'kraken');
+        getSomeSymbols(getSymbolsFromCryptoCom,'cryptocom');
+        getSomeSymbols(getSymbolsFromOkx,'okx');
 
-            setSymbolObj(prev => addSymbols(prev, { binance: res.listBase }));
-            setLoading(prev => (prev + 20));
-            return true;
-        })
-        getSymbolsFromCoinBase().then((res: { listBase: any }) => {
 
-            setSymbolObj(prev => addSymbols(prev, { coinbase: res.listBase }));
-            setLoading(prev => (prev + 20));
-            return true;
-        })
-        getSymbolsFromGateIo().then((res: { listBase: any }) => {
-
-            setSymbolObj(prev => addSymbols(prev, { gateio: res.listBase }));
-            setLoading(prev => (prev + 20));
-            return true;
-        })
-        getSymbolsFromHuobi().then((res: { listBase: any }) => {
-
-            setSymbolObj(prev => addSymbols(prev, { huobi: res.listBase }));
-            console.log(res.listBase);
-
-            setLoading(prev => (prev + 20));
-            return true;
-        })
-        getSymbolsFromKuCoin().then((res: { listBase: any }) => {
-
-            setSymbolObj(prev => addSymbols(prev, { kucoin: res.listBase }));
-            console.log(res.listBase);
-
-            setLoading(prev => (prev + 20));
-            return true;
-        })
-        setLoading(prev => (prev + 0));
+        setLoading(prev => (prev + 16));
 
     }, [])
 
@@ -100,6 +79,17 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         remakeSymbolsToList();
 
     }, [symbolObj]);
+
+    const getSomeSymbols:(getSymbol: Function, symbol:string) => boolean  = (getSymbol, symbol ) =>{
+        return getSymbol().then((res: { listBase: any }) => {
+
+            setSymbolObj(prev => addSymbols(prev, { [symbol]: res.listBase }));
+            console.log(res.listBase);
+
+            setLoading(prev => (prev + 12));
+            return true;
+        })
+    };
 
     const addSymbols: (prev: SymbolsObjectList, newSym: listKey) => SymbolsObjectList = (prev, newSym) => {
         return Object.assign({}, prev, newSym);

@@ -6,20 +6,19 @@ const baseApi: {
     domain: string;
     info: string;
 } = {
-    domain: 'https://api.kucoin.com/api/v2/',
-    info: 'symbols',
+    domain: 'https://api.kraken.com/0/public/',
+    info: 'Assets',
 }
 
-export const getSymbolsFromKuCoin: () => any = () => {
+export const getSymbolsFromKraken: () => any = () => {
 
-    return axios.get('/kucoin-currency_pairs').then(res => setKuCoinSymbols(res.data), err => console.log);
+    return axios.get('/kraken-currency_pairs').then(res => setKrakenSymbols(res.data), err => console.log);
 }
 
-const setKuCoinSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey } = (data) => {
+const setKrakenSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey } = (data) => {
 
     const listBase: listKey = {};
     const listQuote: listKey = {};
-    console.log(data);
 
     data.data.forEach(rec => {
         const keyBase: string = rec.baseCurrency;
