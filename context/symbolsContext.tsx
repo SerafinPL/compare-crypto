@@ -3,7 +3,7 @@
 import { getSymbolsFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
 import { getSymbolsFromGateIo } from "@/services/gateio.service";
-import { getSymbolsFromHuobi } from "@/services/huobi.service"; 
+import { getSymbolsFromHuobi } from "@/services/huobi.service";
 
 
 import { createContext, useState, useEffect } from 'react';
@@ -33,6 +33,9 @@ export type SymbolsObjectList = {
     [key: string]: any;
     binance: listKey | null;
     coinbase: listKeyWithName | null;
+    gateio: listKey | null;
+    huobi: listKey | null;
+
 };
 
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
@@ -45,14 +48,14 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     const [symbolObj, setSymbolObj] = useState<SymbolsObjectList>({
         binance: null,
         coinbase: null,
+        gateio: null,
+        huobi: null,
     });
 
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
 
 
     useEffect(() => {
-
-        
         const reqSymbolsList: any[] = [];
 
         getSymbolsFromBinance().then((res: { listBase: any; }) => {
@@ -77,7 +80,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
             setSymbolObj(prev => addSymbols(prev, { huobi: res.listBase }));
             console.log(res.listBase);
-            
+
             setLoading(prev => (prev + 20));
             return true;
         })
@@ -87,7 +90,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
     useEffect(() => {
         remakeSymbolsToList();
-        
+
     }, [symbolObj]);
 
     const addSymbols: (prev: SymbolsObjectList, newSym: listKey) => SymbolsObjectList = (prev, newSym) => {
