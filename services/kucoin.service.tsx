@@ -10,12 +10,12 @@ const baseApi: {
     info: 'symbols',
 }
 
-export const getSymbolsFromHuobi: () => any = () => {
+export const getSymbolsFromKuCoin: () => any = () => {
 
-    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => setHuobiSymbols(res.data), err => console.log);
+    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => setKuCoinSymbols(res.data), err => console.log);
 }
 
-const setHuobiSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey } = (data) => {
+const setKuCoinSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey } = (data) => {
 
     const listBase: listKey = {};
     const listQuote: listKey = {};
@@ -27,8 +27,6 @@ const setHuobiSymbols: (data: { data: { quoteCurrency: string, baseCurrency: str
         listQuote[keyQuote] = true;
         listBase[keyBase] = true;
     })
-    console.log({ listBase, listQuote });
-
 
     return { listBase, listQuote }
 }

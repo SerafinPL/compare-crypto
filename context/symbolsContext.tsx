@@ -4,6 +4,7 @@ import { getSymbolsFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
 import { getSymbolsFromGateIo } from "@/services/gateio.service";
 import { getSymbolsFromHuobi } from "@/services/huobi.service";
+import { getSymbolsFromKuCoin } from "@/services/kucoin.service";
 
 
 import { createContext, useState, useEffect } from 'react';
@@ -17,12 +18,6 @@ export interface listKeyWithName {
     [key: string]: string;
 }
 
-// export interface listExchangeCom {
-//     binance: string: listKey | null;
-//     coinbase: string: listKeyWithName | null;
-// }
-
-
 export type SymbolsContextType = {
     loading: number;
     symbolObj: SymbolsObjectList;
@@ -35,6 +30,8 @@ export type SymbolsObjectList = {
     coinbase: listKeyWithName | null;
     gateio: listKey | null;
     huobi: listKey | null;
+    kucoin: listKey | null;
+
 
 };
 
@@ -50,7 +47,10 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         coinbase: null,
         gateio: null,
         huobi: null,
+        kucoin: null,
+
     });
+
 
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
 
@@ -84,7 +84,15 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
             setLoading(prev => (prev + 20));
             return true;
         })
-        setLoading(prev => (prev + 20));
+        getSymbolsFromKuCoin().then((res: { listBase: any }) => {
+
+            setSymbolObj(prev => addSymbols(prev, { kucoin: res.listBase }));
+            console.log(res.listBase);
+
+            setLoading(prev => (prev + 20));
+            return true;
+        })
+        setLoading(prev => (prev + 0));
 
     }, [])
 

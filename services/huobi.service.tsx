@@ -27,8 +27,6 @@ const setHuobiSymbols: (data: { data: { qcdn: string, bcdn: string }[] }) => { l
         listQuote[keyQuote] = true;
         listBase[keyBase] = true;
     })
-    console.log({ listBase, listQuote });
-
 
     return { listBase, listQuote }
 }
