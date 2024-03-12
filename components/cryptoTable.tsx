@@ -20,6 +20,20 @@ const CryptoTable: React.FunctionComponent = () => {
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
     </svg>;
 
+    const headerFooter = <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Binance</th>
+        <th>CoinBase</th>
+        <th>GateIo</th>
+        <th>Huobi</th>
+        <th>KuCoin</th>
+        <th>Kraken</th>
+        <th>CryptoCom</th>
+        <th>Okx</th>
+    </tr>;
+
+
     const tableView = Object.keys(innerSymbolList).map((symbol, index) => {
 
         return (
@@ -34,6 +48,21 @@ const CryptoTable: React.FunctionComponent = () => {
                 </td>
                 <td>
                     {innerSymbolList[symbol].gateio ? okIco : nonIco}
+                </td>
+                <td>
+                    {innerSymbolList[symbol].huobi ? okIco : nonIco}
+                </td>
+                <td>
+                    {innerSymbolList[symbol].kucoin ? okIco : nonIco}
+                </td>
+                <td>
+                    {innerSymbolList[symbol].kraken ? okIco : nonIco}
+                </td>
+                <td>
+                    {innerSymbolList[symbol].cryptocom ? okIco : nonIco}
+                </td>
+                <td>
+                    {innerSymbolList[symbol].okx ? okIco : nonIco}
                 </td>
             </tr>
         )
@@ -55,26 +84,13 @@ const CryptoTable: React.FunctionComponent = () => {
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Binance</th>
-                            <th>CoinBase</th>
-                            <th>GateIo</th>
-
-                        </tr>
+                        {headerFooter}
                     </thead>
                     <tbody>
                         {tableView}
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Binance</th>
-                            <th>CoinBase</th>
-                            <th>GateIo</th>
-                        </tr>
+                        {headerFooter}
                     </tfoot>
                 </table>
             </div>
