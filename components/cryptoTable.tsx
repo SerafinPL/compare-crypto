@@ -34,7 +34,7 @@ const CryptoTable: React.FunctionComponent = () => {
     const header = <tr>
         <th>#</th>
         <th>Name</th>
-        {tableContentSymbols.map(el => (<th>{el}</th>))}
+        {tableContentSymbols.map(el => (<th key={`thead-${el}`}>{el}</th>))}
     </tr>;
 
     const tableView = Object.keys(innerSymbolList).map((symbol, index) => {
