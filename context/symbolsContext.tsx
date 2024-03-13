@@ -1,4 +1,6 @@
 'use client';
+import { createContext, useState, useEffect } from 'react';
+import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
 
 import { getSymbolsFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
@@ -9,15 +11,11 @@ import { getSymbolsFromKraken } from "@/services/kraken.service";
 import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
 import { getSymbolsFromOkx } from "@/services/okx.service";
 
-import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
-
-import { createContext, useState, useEffect } from 'react';
 
 
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
 
 const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-
 
     const [loading, setLoading] = useState<number>(0);
 
@@ -33,7 +31,6 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     });
 
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
-
 
     useEffect(() => {
 
@@ -70,7 +67,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         const hugeListSymbols: AllCoinsObjectList = {};
 
         symbolObj && Object.keys(symbolObj).forEach(exCompany => {
-            symbolObj[exCompany] && Object.keys(symbolObj[exCompany].listQuote).forEach(coin => {
+            symbolObj[exCompany] && Object.keys(symbolObj[exCompany].listBase).forEach(coin => {
                 hugeListSymbols[coin] = hugeListSymbols[coin] ? hugeListSymbols[coin] : {};
                 hugeListSymbols[coin][exCompany] = true;
             })
