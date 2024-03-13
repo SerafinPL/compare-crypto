@@ -1,5 +1,5 @@
 import axios from "axios";
-import { listKey, basisApi, symbolListAnswer } from "@/services/symbolsTypes";
+import { basisApi, symbolListAnswer } from "@/services/symbolsTypes";
 import { uniGetSymbolList,dataSymbols } from "./ uniFunc";
 
 
