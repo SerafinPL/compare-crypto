@@ -9,34 +9,10 @@ import { getSymbolsFromKraken } from "@/services/kraken.service";
 import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
 import { getSymbolsFromOkx } from "@/services/okx.service";
 
+import { listKey, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
 
 import { createContext, useState, useEffect } from 'react';
-import axios from "axios";
 
-export interface listKey {
-    [key: string]: boolean;
-}
-
-export interface listKeyWithName {
-    [key: string]: string;
-}
-
-export type SymbolsContextType = {
-    loading: number;
-    symbolObj: SymbolsObjectList;
-    symbolList: { [key: string]: any; };
-};
-
-export type SymbolsObjectList = {
-    [key: string]: any;
-    binance: listKey | null;
-    coinbase: listKeyWithName | null;
-    gateio: listKey | null;
-    huobi: listKey | null;
-    kucoin: listKey | null;
-
-
-};
 
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
 
@@ -51,7 +27,9 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         gateio: null,
         huobi: null,
         kucoin: null,
-
+        kraken: null,
+        cryptocom: null,
+        okx: null,
     });
 
 
@@ -61,24 +39,23 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     useEffect(() => {
         const reqSymbolsList: any[] = [];
 
-        getSomeSymbols(getSymbolsFromBinance,'binance');
-        getSomeSymbols(getSymbolsFromCoinBase,'coinbase');
-        getSomeSymbols(getSymbolsFromGateIo,'gateio');
-        getSomeSymbols(getSymbolsFromHuobi,'huobi');
-        getSomeSymbols(getSymbolsFromKuCoin,'kucoin');
-        getSomeSymbols(getSymbolsFromKraken,'kraken');
-        getSomeSymbols(getSymbolsFromCryptoCom,'cryptocom');
-        getSomeSymbols(getSymbolsFromOkx,'okx');
+        getSomeSymbols(getSymbolsFromBinance, 'binance');
+        getSomeSymbols(getSymbolsFromCoinBase, 'coinbase');
+        getSomeSymbols(getSymbolsFromGateIo, 'gateio');
+        getSomeSymbols(getSymbolsFromHuobi, 'huobi');
+        getSomeSymbols(getSymbolsFromKuCoin, 'kucoin');
+        getSomeSymbols(getSymbolsFromKraken, 'kraken');
+        getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
+        getSomeSymbols(getSymbolsFromOkx, 'okx');
         setLoading(prev => (prev + 4));
 
     }, [])
 
     useEffect(() => {
         remakeSymbolsToList();
-
     }, [symbolObj]);
 
-    const getSomeSymbols:(getSymbol: Function, symbol:string) => boolean  = (getSymbol, symbol ) =>{
+    const getSomeSymbols: (getSymbol: () => any, symbol: string) => boolean = (getSymbol, symbol) => {
         return getSymbol().then((res: { listBase: any }) => {
 
             setSymbolObj(prev => addSymbols(prev, { [symbol]: res.listBase }));
@@ -95,9 +72,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const remakeSymbolsToList = () => {
 
-        const hugeListSymbols: {
-            [key: string]: { [key: string]: boolean };
-        } = {};
+        const hugeListSymbols: AllCoinsObjectList = {};
 
         symbolObj && Object.keys(symbolObj).forEach(exCompany => {
             symbolObj[exCompany] && Object.keys(symbolObj[exCompany]).forEach(coin => {
@@ -108,7 +83,6 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
         return setSymbolList(hugeListSymbols);
     }
-
 
     return (
         <SymbolContext.Provider value={{ loading, symbolObj, symbolList }}>

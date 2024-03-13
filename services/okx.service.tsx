@@ -1,21 +1,18 @@
 
 import axios from "axios";
-import { listKey } from "@/context/symbolsContext";
+import { listKey,basisApi,symbolListAnswer } from "@/services/symbolsTypes";
 
-const baseApi: {
-    domain: string;
-    info: string;
-} = {
+const baseApi: basisApi = {
     domain: 'https://www.okx.com/api/v5/public/',
     info: 'instruments',
 }
 
-export const getSymbolsFromOkx: () => any = () => {
+export const getSymbolsFromOkx: () => Promise<any> = () => {
 
     return axios.get(`${baseApi.domain}${baseApi.info}`,{params:{instType:'SPOT'}}).then(res => setOkxSymbols(res.data), err => console.log);
 }
 
-const setOkxSymbols: ( res: { data:{quoteCcy: string, baseCcy: string}[] } ) => { listBase: listKey } = (res) => {
+const setOkxSymbols: ( res: { data:{quoteCcy: string, baseCcy: string}[] } ) => symbolListAnswer = (res) => {
 
     const listBase: listKey = {};
     const listQuote: listKey = {};

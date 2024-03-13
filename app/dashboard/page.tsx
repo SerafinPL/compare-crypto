@@ -1,11 +1,10 @@
 import CryptoTable from "@/components/cryptoTable";
 
-
 const Dashboard: React.FunctionComponent = () => {
-  return (<div>
-    <CryptoTable />
-  </div>
-
+  return (
+    <div>
+      <CryptoTable />
+    </div>
   );
 }
 

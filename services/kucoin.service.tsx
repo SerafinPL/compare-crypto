@@ -1,21 +1,18 @@
 
 import axios from "axios";
-import { listKey } from "@/context/symbolsContext";
+import { listKey, basisApi } from "@/services/symbolsTypes";
 
-const baseApi: {
-    domain: string;
-    info: string;
-} = {
+const baseApi: basisApi = {
     domain: 'https://api.kucoin.com/api/v2/',
     info: 'symbols',
 }
 
-export const getSymbolsFromKuCoin: () => any = () => {
+export const getSymbolsFromKuCoin: () => Promise<any> = () => {
 
     return axios.get('/kucoin-currency_pairs').then(res => setKuCoinSymbols(res.data), err => console.log);
 }
 
-const setKuCoinSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey } = (data) => {
+const setKuCoinSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey, listQuote: listKey } = (data) => {
 
     const listBase: listKey = {};
     const listQuote: listKey = {};

@@ -1,21 +1,18 @@
 
 import axios from "axios";
-import { listKey } from "@/context/symbolsContext";
+import { listKey, basisApi, symbolListAnswer } from "@/services/symbolsTypes";
 
-const baseApi: {
-    domain: string;
-    info: string;
-} = {
+const baseApi: basisApi = {
     domain: 'https://api.kraken.com/0/public/',
     info: 'Assets',
 }
 
-export const getSymbolsFromKraken: () => any = () => {
+export const getSymbolsFromKraken: () => Promise<any> = () => {
 
     return axios.get('/kraken-currency_pairs').then(res => setKrakenSymbols(res.data), err => console.log);
 }
 
-const setKrakenSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey } = (data) => {
+const setKrakenSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => symbolListAnswer = (data) => {
 
     const listBase: listKey = {};
     const listQuote: listKey = {};
