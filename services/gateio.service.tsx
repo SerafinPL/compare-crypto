@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { basisApi,symbolListAnswer } from "@/services/symbolsTypes";
+import { listKey, basisApi,symbolListAnswer } from "@/services/symbolsTypes";
 import { uniGetSymbolList,dataSymbols } from "./ uniFunc";
 
 const baseApi: basisApi = {
@@ -13,6 +13,6 @@ export const getSymbolsFromGateIo: () => Promise<any> = () => {
 }
 
 const setGateIoSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
-    return uniGetSymbolList(data,'buy_currency','sell_currency');
+    return uniGetSymbolList(data,'buy_currency','sell_currency')
 }
 

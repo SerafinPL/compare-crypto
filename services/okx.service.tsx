@@ -1,6 +1,8 @@
 
 import axios from "axios";
-import { listKey,basisApi,symbolListAnswer } from "@/services/symbolsTypes";
+import { basisApi, symbolListAnswer  } from "@/services/symbolsTypes";
+import { uniGetSymbolList,dataSymbols } from "./ uniFunc";
+
 
 const baseApi: basisApi = {
     domain: 'https://www.okx.com/api/v5/public/',
@@ -8,22 +10,10 @@ const baseApi: basisApi = {
 }
 
 export const getSymbolsFromOkx: () => Promise<any> = () => {
-
-    return axios.get(`${baseApi.domain}${baseApi.info}`,{params:{instType:'SPOT'}}).then(res => setOkxSymbols(res.data), err => console.log);
+    return axios.get(`${baseApi.domain}${baseApi.info}`,{params:{instType:'SPOT'}}).then(res => setOkxSymbols(res.data.data), err => console.log);
 }
 
-const setOkxSymbols: ( res: { data:{quoteCcy: string, baseCcy: string}[] } ) => symbolListAnswer = (res) => {
-
-    const listBase: listKey = {};
-    const listQuote: listKey = {};
-
-    res.data.forEach(rec => {
-        const keyBase: string = rec.baseCcy;
-        const keyQuote: string = rec.quoteCcy;
-        listQuote[keyQuote] = true;
-        listBase[keyBase] = true;
-    })
-
-    return { listBase, listQuote }
+const setOkxSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
+    return uniGetSymbolList(data,'baseCcy','quoteCcy');
 }
 

@@ -9,7 +9,7 @@ import { getSymbolsFromKraken } from "@/services/kraken.service";
 import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
 import { getSymbolsFromOkx } from "@/services/okx.service";
 
-import { listKey, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
+import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
 
 import { createContext, useState, useEffect } from 'react';
 
@@ -33,9 +33,9 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     });
 
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
-    
+
+
     useEffect(() => {
-        const reqSymbolsList: any[] = [];
 
         getSomeSymbols(getSymbolsFromBinance, 'binance');
         getSomeSymbols(getSymbolsFromCoinBase, 'coinbase');
@@ -54,17 +54,14 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     }, [symbolObj]);
 
     const getSomeSymbols: (getSymbol: () => any, symbol: string) => boolean = (getSymbol, symbol) => {
-        return getSymbol().then((res: { listBase: any }) => {
-
-            setSymbolObj(prev => addSymbols(prev, { [symbol]: res.listBase }));
-            console.log(res.listBase);
-
+        return getSymbol().then((res: symbolListAnswer) => {
+            setSymbolObj(prev => addSymbols(prev, { [symbol]: res }));
             setLoading(prev => (prev + 12));
             return true;
         })
     };
 
-    const addSymbols: (prev: SymbolsObjectList, newSym: listKey) => SymbolsObjectList = (prev, newSym) => {
+    const addSymbols: (prev: SymbolsObjectList, newSym: {}) => SymbolsObjectList = (prev, newSym) => {
         return Object.assign({}, prev, newSym);
     }
 
@@ -73,7 +70,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         const hugeListSymbols: AllCoinsObjectList = {};
 
         symbolObj && Object.keys(symbolObj).forEach(exCompany => {
-            symbolObj[exCompany] && Object.keys(symbolObj[exCompany]).forEach(coin => {
+            symbolObj[exCompany] && Object.keys(symbolObj[exCompany].listQuote).forEach(coin => {
                 hugeListSymbols[coin] = hugeListSymbols[coin] ? hugeListSymbols[coin] : {};
                 hugeListSymbols[coin][exCompany] = true;
             })
