@@ -38,12 +38,11 @@ const CryptoTable: React.FunctionComponent = () => {
     </tr>;
 
     const tableView = Object.keys(innerSymbolList).map((symbol, index) => {
-
         return (
             <tr key={`cryptoRow${symbol}`}>
                 <th>{++index}</th>
                 <td>{symbol}</td>
-                {tableContentSymbols.map(el => (<td>
+                {tableContentSymbols.map(el => (<td key={`tSymbol-${symbol}-${el}`}>
                     {innerSymbolList[symbol][el.toLowerCase()] ? okIco : nonIco}
                 </td>))}
             </tr>
@@ -52,7 +51,6 @@ const CryptoTable: React.FunctionComponent = () => {
 
     return (
         <div className="min-w-full min-h-screen	">
-
             <div className="flex min-w-full p-3">
                 <div className="flex-none p-3">
                     {context?.loading}%
@@ -61,7 +59,6 @@ const CryptoTable: React.FunctionComponent = () => {
                     <progress className="progress progress-secondary " value={loadingValue} max="100"></progress>
                 </div>
             </div>
-
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
@@ -73,7 +70,6 @@ const CryptoTable: React.FunctionComponent = () => {
                 </table>
             </div>
         </div>
-
     );
 }
 
