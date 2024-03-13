@@ -10,6 +10,17 @@ const CryptoTable: React.FunctionComponent = () => {
     const loadingValue: number = context?.loading || 0;
     const innerSymbolList = context?.symbolList || {};
 
+    const tableContentSymbols = [
+        'Binance',
+        'CoinBase',
+        'GateIo',
+        'Huobi',
+        'KuCoin',
+        'Kraken',
+        'CryptoCom',
+        'Okx',
+    ]
+
     //** VIEW VARS**/
 
     const okIco = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -23,16 +34,8 @@ const CryptoTable: React.FunctionComponent = () => {
     const headerFooter = <tr>
         <th>#</th>
         <th>Name</th>
-        <th>Binance</th>
-        <th>CoinBase</th>
-        <th>GateIo</th>
-        <th>Huobi</th>
-        <th>KuCoin</th>
-        <th>Kraken</th>
-        <th>CryptoCom</th>
-        <th>Okx</th>
+        {tableContentSymbols.map(el => (<th>{el}</th>))}
     </tr>;
-
 
     const tableView = Object.keys(innerSymbolList).map((symbol, index) => {
 
@@ -40,30 +43,9 @@ const CryptoTable: React.FunctionComponent = () => {
             <tr key={`cryptoRow${symbol}`}>
                 <th>{++index}</th>
                 <td>{symbol}</td>
-                <td>
-                    {innerSymbolList[symbol].binance ? okIco : nonIco}
-                </td>
-                <td>
-                    {innerSymbolList[symbol].coinbase ? okIco : nonIco}
-                </td>
-                <td>
-                    {innerSymbolList[symbol].gateio ? okIco : nonIco}
-                </td>
-                <td>
-                    {innerSymbolList[symbol].huobi ? okIco : nonIco}
-                </td>
-                <td>
-                    {innerSymbolList[symbol].kucoin ? okIco : nonIco}
-                </td>
-                <td>
-                    {innerSymbolList[symbol].kraken ? okIco : nonIco}
-                </td>
-                <td>
-                    {innerSymbolList[symbol].cryptocom ? okIco : nonIco}
-                </td>
-                <td>
-                    {innerSymbolList[symbol].okx ? okIco : nonIco}
-                </td>
+                {tableContentSymbols.map(el => (<td>
+                    {innerSymbolList[symbol][el.toLowerCase()] ? okIco : nonIco}
+                </td>))}                
             </tr>
         )
     });
@@ -78,7 +60,6 @@ const CryptoTable: React.FunctionComponent = () => {
                 <div className="flex-auto w-10/12 p-3">
                     <progress className="progress progress-secondary " value={loadingValue} max="100"></progress>
                 </div>
-
             </div>
 
             <div className="overflow-x-auto">

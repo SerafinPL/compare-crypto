@@ -32,10 +32,8 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         okx: null,
     });
 
-
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
-
-
+    
     useEffect(() => {
         const reqSymbolsList: any[] = [];
 

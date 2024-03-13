@@ -5,7 +5,7 @@ export type basisApi = {
 export type symbolListAnswer = { listBase: listKey, listQuote: listKey }
 
 export type listKey = {
-    [key: string]: boolean;
+    [key: string]: boolean | string;
 }
 
 export type listKeyWithName = {
