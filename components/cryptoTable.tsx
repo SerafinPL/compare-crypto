@@ -31,7 +31,7 @@ const CryptoTable: React.FunctionComponent = () => {
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
     </svg>;
 
-    const headerFooter = <tr>
+    const header = <tr>
         <th>#</th>
         <th>Name</th>
         {tableContentSymbols.map(el => (<th>{el}</th>))}
@@ -45,7 +45,7 @@ const CryptoTable: React.FunctionComponent = () => {
                 <td>{symbol}</td>
                 {tableContentSymbols.map(el => (<td>
                     {innerSymbolList[symbol][el.toLowerCase()] ? okIco : nonIco}
-                </td>))}                
+                </td>))}
             </tr>
         )
     });
@@ -65,14 +65,11 @@ const CryptoTable: React.FunctionComponent = () => {
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
-                        {headerFooter}
+                        {header}
                     </thead>
                     <tbody>
                         {tableView}
                     </tbody>
-                    <tfoot>
-                        {headerFooter}
-                    </tfoot>
                 </table>
             </div>
         </div>
