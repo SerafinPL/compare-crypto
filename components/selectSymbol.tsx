@@ -1,24 +1,29 @@
 'use client';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { SymbolContext } from "@/context/symbolsContext";
 import SearchBox from "./searchBox";
 
-const SelectSymbol: React.FunctionComponent = (symbolList) => {
+const SelectSymbol: React.FunctionComponent = () => {
+
+    const [searchInput, setSearchInput] = useState<string>('');
 
     let context = useContext(SymbolContext);
-    const loadingValue: number = context?.loading || 0;
     const innerSymbolList = context?.symbolList || {};
 
-    const optionsRec = Object.keys(innerSymbolList).map((symbol, index) => {
-        return (<li key={`cryptoSymbolSearchRow${symbol}`}>{symbol}</li>)
+    const noEmpty = searchInput.trim().length > 0;
+    const optionsRec = Object.keys(innerSymbolList).map(symbol => {
+
+        if (symbol.search(searchInput.trim().toUpperCase()) > -1 && noEmpty) {
+            return (<li className="cursor-pointer" key={`cryptoSymbolSearchRow${symbol}`}>{symbol}</li>)
+        }
     });
 
     return (<div className="float-right	">
-        <div className="dropdown dropdown-open w-80">
-            <SearchBox />
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80">
-            {optionsRec}
+        <div className={`w-80`}>
+            <SearchBox input={searchInput} setInput={setSearchInput} />
+            <ul className={` ${noEmpty ? 'block' : 'hidden'}  dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80`}>
+                {optionsRec}
             </ul>
         </div>
     </div>);
