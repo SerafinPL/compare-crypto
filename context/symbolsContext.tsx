@@ -11,8 +11,6 @@ import { getSymbolsFromKraken } from "@/services/kraken.service";
 import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
 import { getSymbolsFromOkx } from "@/services/okx.service";
 
-
-
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
 
 const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children }) => {

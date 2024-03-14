@@ -13,16 +13,15 @@ const SelectSymbol: React.FunctionComponent = () => {
 
     const noEmpty = searchInput.trim().length > 0;
     const optionsRec = Object.keys(innerSymbolList).map(symbol => {
-
         if (symbol.search(searchInput.trim().toUpperCase()) > -1 && noEmpty) {
             return (<li className="cursor-pointer" key={`cryptoSymbolSearchRow${symbol}`}>{symbol}</li>)
         }
     });
 
-    return (<div className="float-right	">
+    return (<div className="float-right">
         <div className={`w-80`}>
             <SearchBox input={searchInput} setInput={setSearchInput} />
-            <ul className={` ${noEmpty ? 'block' : 'hidden'}  dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80`}>
+            <ul className={`${noEmpty ? 'block' : 'hidden'} dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80`}>
                 {optionsRec}
             </ul>
         </div>
