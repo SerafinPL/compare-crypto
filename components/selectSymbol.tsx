@@ -26,7 +26,7 @@ const SelectSymbol = ({ baseCoin, setBaseCoin }: selectProps) => {
 
 
     const optionsRec = Object.keys(innerSymbolList).map(symbol => {
-        if (symbol.search(searchInput.trim().toUpperCase()) > -1 && noEmpty) {
+        if (symbol.search(searchInput.trim().toUpperCase()) > -1 || (dropDownOpen && !noEmpty)) {
             return (<li className="cursor-pointer" key={`cryptoSymbolSearchRow${symbol}`} onClick={() => clickHandler(symbol)}>{symbol}</li>)
         }
     });
@@ -36,9 +36,9 @@ const SelectSymbol = ({ baseCoin, setBaseCoin }: selectProps) => {
             <div className={`w-40 flex justify-center items-center`}>
                 {baseCoin}
             </div>
-            <div className={`w-96 dropdown ${noEmpty ? 'dropdown-open' : ''}`}>
+            <div className={`w-96 dropdown ${dropDownOpen ? 'dropdown-open' : ''}`}>
                 <SearchBox input={searchInput} setInput={setSearchInput} dropDownOpen={dropDownOpen} setDropDownState={setDropDownState} />
-                <ul className={`${noEmpty ? '' : 'hidden'} dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80`}>
+                <ul className={`${dropDownOpen ? '' : 'hidden'} dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80`}>
                     {optionsRec}
                 </ul>
             </div>
