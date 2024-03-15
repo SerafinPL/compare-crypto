@@ -1,32 +1,17 @@
 
 import axios from "axios";
-import { listKey } from "@/context/symbolsContext";
+import { basisApi, symbolListAnswer } from "@/services/symbolsTypes";
+import { uniGetSymbolList, dataSymbols } from "./ uniFunc";
 
-const baseApi: {
-    domain: string;
-    info: string;
-} = {
+const baseApi: basisApi = {
     domain: 'https://api.kraken.com/0/public/',
     info: 'Assets',
 }
 
-export const getSymbolsFromKraken: () => any = () => {
-
-    return axios.get('/kraken-currency_pairs').then(res => setKrakenSymbols(res.data), err => console.log);
+export const getSymbolsFromKraken: () => Promise<any> = () => {
+    return axios.get('/kraken-currency_pairs').then(res => setKrakenSymbols(res.data.data), err => console.log);
 }
 
-const setKrakenSymbols: (data: { data: { quoteCurrency: string, baseCurrency: string }[] }) => { listBase: listKey } = (data) => {
-
-    const listBase: listKey = {};
-    const listQuote: listKey = {};
-
-    data.data.forEach(rec => {
-        const keyBase: string = rec.baseCurrency;
-        const keyQuote: string = rec.quoteCurrency;
-        listQuote[keyQuote] = true;
-        listBase[keyBase] = true;
-    })
-
-    return { listBase, listQuote }
+const setKrakenSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
+    return uniGetSymbolList(data, 'baseCurrency', 'quoteCurrency');
 }
-

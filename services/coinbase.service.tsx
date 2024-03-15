@@ -1,28 +1,19 @@
 import axios from "axios";
-import { listKeyWithName } from "@/context/symbolsContext";
+import { basisApi, symbolListAnswer } from "@/services/symbolsTypes";
+import { uniGetSymbolList,dataSymbols } from "./ uniFunc";
 
-const baseApi: {
-    domain: string;
-    info: string;
-} = {
+
+const baseApi: basisApi = {
     domain: 'https://api.coinbase.com/v2/',
     info: 'currencies/crypto',
+    prices:'/prices',
 }
 
-export const getSymbolsFromCoinBase: () => any = () => {
-
+export const getSymbolsFromCoinBase: () => Promise<any> = () => {
     return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => setCoinBaseSymbols(res.data.data), err => console.log);
 }
 
-const setCoinBaseSymbols: (data: { code: string, name: string }[]) => {  listBase: listKeyWithName } = (data) => {
-
-    const listBase: listKeyWithName = {};
-
-    data.forEach(rec => {
-        const keyBase: string = rec.code;
-        listBase[keyBase] = rec.name;
-    })
-
-    return { listBase }
+const setCoinBaseSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
+    return uniGetSymbolList(data,'code','code');
 }
 

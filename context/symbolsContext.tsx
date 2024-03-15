@@ -1,4 +1,6 @@
 'use client';
+import { createContext, useState, useEffect } from 'react';
+import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
 
 import { getSymbolsFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
@@ -9,39 +11,9 @@ import { getSymbolsFromKraken } from "@/services/kraken.service";
 import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
 import { getSymbolsFromOkx } from "@/services/okx.service";
 
-
-import { createContext, useState, useEffect } from 'react';
-import axios from "axios";
-
-export interface listKey {
-    [key: string]: boolean;
-}
-
-export interface listKeyWithName {
-    [key: string]: string;
-}
-
-export type SymbolsContextType = {
-    loading: number;
-    symbolObj: SymbolsObjectList;
-    symbolList: { [key: string]: any; };
-};
-
-export type SymbolsObjectList = {
-    [key: string]: any;
-    binance: listKey | null;
-    coinbase: listKeyWithName | null;
-    gateio: listKey | null;
-    huobi: listKey | null;
-    kucoin: listKey | null;
-
-
-};
-
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
 
 const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-
 
     const [loading, setLoading] = useState<number>(0);
 
@@ -51,56 +23,49 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         gateio: null,
         huobi: null,
         kucoin: null,
-
+        kraken: null,
+        cryptocom: null,
+        okx: null,
     });
-
 
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
 
-
     useEffect(() => {
-        const reqSymbolsList: any[] = [];
 
-        getSomeSymbols(getSymbolsFromBinance,'binance');
-        getSomeSymbols(getSymbolsFromCoinBase,'coinbase');
-        getSomeSymbols(getSymbolsFromGateIo,'gateio');
-        getSomeSymbols(getSymbolsFromHuobi,'huobi');
-        getSomeSymbols(getSymbolsFromKuCoin,'kucoin');
-        getSomeSymbols(getSymbolsFromKraken,'kraken');
-        getSomeSymbols(getSymbolsFromCryptoCom,'cryptocom');
-        getSomeSymbols(getSymbolsFromOkx,'okx');
+        getSomeSymbols(getSymbolsFromBinance, 'binance');
+        getSomeSymbols(getSymbolsFromCoinBase, 'coinbase');
+        getSomeSymbols(getSymbolsFromGateIo, 'gateio');
+        getSomeSymbols(getSymbolsFromHuobi, 'huobi');
+        getSomeSymbols(getSymbolsFromKuCoin, 'kucoin');
+        getSomeSymbols(getSymbolsFromKraken, 'kraken');
+        getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
+        getSomeSymbols(getSymbolsFromOkx, 'okx');
         setLoading(prev => (prev + 4));
 
     }, [])
 
     useEffect(() => {
         remakeSymbolsToList();
-
     }, [symbolObj]);
 
-    const getSomeSymbols:(getSymbol: Function, symbol:string) => boolean  = (getSymbol, symbol ) =>{
-        return getSymbol().then((res: { listBase: any }) => {
-
-            setSymbolObj(prev => addSymbols(prev, { [symbol]: res.listBase }));
-            console.log(res.listBase);
-
+    const getSomeSymbols: (getSymbol: () => any, symbol: string) => boolean = (getSymbol, symbol) => {
+        return getSymbol().then((res: symbolListAnswer) => {
+            setSymbolObj(prev => addSymbols(prev, { [symbol]: res }));
             setLoading(prev => (prev + 12));
             return true;
         })
     };
 
-    const addSymbols: (prev: SymbolsObjectList, newSym: listKey) => SymbolsObjectList = (prev, newSym) => {
+    const addSymbols: (prev: SymbolsObjectList, newSym: {}) => SymbolsObjectList = (prev, newSym) => {
         return Object.assign({}, prev, newSym);
     }
 
     const remakeSymbolsToList = () => {
 
-        const hugeListSymbols: {
-            [key: string]: { [key: string]: boolean };
-        } = {};
+        const hugeListSymbols: AllCoinsObjectList = {};
 
         symbolObj && Object.keys(symbolObj).forEach(exCompany => {
-            symbolObj[exCompany] && Object.keys(symbolObj[exCompany]).forEach(coin => {
+            symbolObj[exCompany] && Object.keys(symbolObj[exCompany].listBase).forEach(coin => {
                 hugeListSymbols[coin] = hugeListSymbols[coin] ? hugeListSymbols[coin] : {};
                 hugeListSymbols[coin][exCompany] = true;
             })
@@ -108,7 +73,6 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
         return setSymbolList(hugeListSymbols);
     }
-
 
     return (
         <SymbolContext.Provider value={{ loading, symbolObj, symbolList }}>
