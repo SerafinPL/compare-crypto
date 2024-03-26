@@ -32,7 +32,7 @@ const SelectSymbol = ({ baseCoin, setBaseCoin }: selectProps) => {
     });
 
     return (
-        <div className="float-right flex justify-center items-center">
+        <div className="float-right flex justify-center items-center"> 
             <div className={`w-40 flex justify-center items-center`}>
                 {baseCoin}
             </div>
