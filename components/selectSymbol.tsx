@@ -22,6 +22,7 @@ const SelectSymbol = ({ baseCoin, setBaseCoin }: selectProps) => {
         setBaseCoin(symbol);
         setSearchInput('');
         setDropDownState(false);
+        context?.getPriceList(symbol);
     }
 
 

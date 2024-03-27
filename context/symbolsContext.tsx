@@ -2,8 +2,9 @@
 import { createContext, useState, useEffect } from 'react';
 import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
 
+
 import { getSymbolsFromBinance } from "@/services/binance.service";
-import { getSymbolsFromCoinBase } from "@/services/coinbase.service";
+import { getSymbolsFromCoinBase, getExchangesFromCoinBase } from "@/services/coinbase.service";
 import { getSymbolsFromGateIo } from "@/services/gateio.service";
 import { getSymbolsFromHuobi } from "@/services/huobi.service";
 import { getSymbolsFromKuCoin } from "@/services/kucoin.service";
@@ -41,6 +42,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
         getSomeSymbols(getSymbolsFromOkx, 'okx');
         setLoading(prev => (prev + 4));
+        
 
     }, [])
 
@@ -74,8 +76,33 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         return setSymbolList(hugeListSymbols);
     }
 
+    const getPriceList = (symbol:string) => {
+
+        const hugeListPrices: AllCoinsObjectList = {};
+
+
+        getExchangesFromCoinBase(symbol).then(res => {
+            console.log(res);            
+            hugeListPrices.coinbase = res;
+        })
+
+
+        
+        // symbolObj && Object.keys(symbolObj).forEach(exCompany => {
+        //     symbolObj[exCompany] && Object.keys(symbolObj[exCompany].listBase).forEach(coin => {
+        //         hugeListSymbols[coin] = hugeListSymbols[coin] ? hugeListSymbols[coin] : {};
+        //         hugeListSymbols[coin][exCompany] = true;
+        //     })
+        // })
+
+
+
+        // return setSymbolList(hugeListSymbols);
+    }
+
+
     return (
-        <SymbolContext.Provider value={{ loading, symbolObj, symbolList }}>
+        <SymbolContext.Provider value={{ loading, symbolObj, symbolList, getPriceList }}>
             {children}
         </SymbolContext.Provider>
     );

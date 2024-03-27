@@ -5,7 +5,7 @@ export type basisApi = {
 export type symbolListAnswer = { listBase: listKey, listQuote: listKey }
 
 export type listKey = {
-    [key: string]: boolean | string;
+    [key: string]: boolean | string | number;
 }
 
 export type listKeyWithName = {
@@ -16,6 +16,7 @@ export type SymbolsContextType = {
     loading: number;
     symbolObj: SymbolsObjectList;
     symbolList: { [key: string]: any; };
+    getPriceList: (symbol:string) => any;
 };
 
 export interface SymbolsObjectList {
@@ -32,4 +33,8 @@ export interface SymbolsObjectList {
 
 export type AllCoinsObjectList = {
     [key: string]: { [key: string]: boolean };
+};
+
+export type AllCoinsPriceList = {
+    [key: string]: { [key: string]: number };
 };
