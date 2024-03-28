@@ -47,14 +47,16 @@ const setBinanceSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
     return uniGetSymbolList(data, 'fromAsset', 'toAsset');
 }
 
-export const getExchangesFromBinance: (symbol: string) => Promise<any> = (symbol) => {
+export const getExchangesFromBinance: (baseSymbol: string) => Promise<any> = (baseSymbol) => {
 
 
 
     return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.info}`).then(res => {
         let pairLists = [];
+        console.log(baseSymbol);
+        
         const filteredSymbols = res.data.symbols.filter((el:{quoteAsset:string, status:string})=> {
-            return el.quoteAsset === symbol && el.status === "TRADING";
+            return el.quoteAsset == baseSymbol && el.status === "TRADING";
         })
         pairLists = filteredSymbols.map((el:{symbol:string}) => {
             return el.symbol
@@ -73,7 +75,7 @@ export const getExchangesFromBinance: (symbol: string) => Promise<any> = (symbol
         return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.priceTicker}?symbols=[${paramsToSend}]`).then(res => {
             let answerObj:{ [key: string]:  number } = {};
             res.data.forEach((el:{symbol:string, price:number}) => {
-                answerObj[el.symbol.substring(-4, el.symbol.length - 4)] = 1/el.price;
+                answerObj[el.symbol.substring(-baseSymbol.length, el.symbol.length - baseSymbol.length)] = 1/el.price;
             })
             return answerObj;
         }, err => console.log);

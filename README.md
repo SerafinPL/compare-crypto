@@ -10,7 +10,7 @@ The project assumes the creation of URL paths to the generated views.
 
 Scheduled Views for Version 1:
 
-1 List of Cryptocurrencies in a specific currency,
+# 1 List of Cryptocurrencies in a specific currency, // at progress
 
 2 Single Cryptocurrency in various cryptocurrencies,
 
