@@ -20,7 +20,8 @@ export const getSymbolsFromKuCoin: () => Promise<any> = () => {
 }
 
 export const getExchangesFromKuCoin: (currency: string) => Promise<any> = (currency) => {
-    return axios.get(`${baseApi.domainV1}${baseApi.marketAll}`).then(res => {
+    // return axios.get(`${baseApi.domainV1}${baseApi.marketAll}`)
+    return axios.get('/kucoin-currency_prices').then(res => {
         const filteredSymbols = res.data.data.ticker.filter((el: { symbol: string }) => {
             return el.symbol.substring( el.symbol.length-currency.length,el.symbol.length )== currency;
         })
