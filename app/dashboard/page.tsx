@@ -8,6 +8,8 @@ const Dashboard = () => {
 
   const [baseCoin, setBaseCoin] = useState<string>('USD');
 
+  
+
   return (
     <div>
       <SelectSymbol baseCoin={baseCoin} setBaseCoin={setBaseCoin}/>
