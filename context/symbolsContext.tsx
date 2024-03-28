@@ -1,9 +1,9 @@
 'use client';
 import { createContext, useState, useEffect } from 'react';
-import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList } from "@/services/symbolsTypes";
+import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList,AllCoinsPriceList } from "@/services/symbolsTypes";
 
 
-import { getSymbolsFromBinance } from "@/services/binance.service";
+import { getSymbolsFromBinance, getExchangesFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase, getExchangesFromCoinBase } from "@/services/coinbase.service";
 import { getSymbolsFromGateIo } from "@/services/gateio.service";
 import { getSymbolsFromHuobi } from "@/services/huobi.service";
@@ -78,7 +78,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const getPriceList = (symbol:string) => {
 
-        const hugeListPrices: AllCoinsObjectList = {};
+        const hugeListPrices: AllCoinsPriceList = {};
 
 
         getExchangesFromCoinBase(symbol).then(res => {
@@ -86,18 +86,11 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
             hugeListPrices.coinbase = res;
         })
 
+        getExchangesFromBinance(symbol).then(res => {
+            console.log(res);            
+            hugeListPrices.binance = res;
+        })
 
-        
-        // symbolObj && Object.keys(symbolObj).forEach(exCompany => {
-        //     symbolObj[exCompany] && Object.keys(symbolObj[exCompany].listBase).forEach(coin => {
-        //         hugeListSymbols[coin] = hugeListSymbols[coin] ? hugeListSymbols[coin] : {};
-        //         hugeListSymbols[coin][exCompany] = true;
-        //     })
-        // })
-
-
-
-        // return setSymbolList(hugeListSymbols);
     }
 
 
