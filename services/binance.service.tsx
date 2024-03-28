@@ -53,10 +53,10 @@ export const getExchangesFromBinance: (symbol: string) => Promise<any> = (symbol
 
     return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.info}`).then(res => {
         let pairLists = [];
-        const filteredSymbols = res.data.symbols.filter(el => {
+        const filteredSymbols = res.data.symbols.filter((el:{quoteAsset:string, status:string})=> {
             return el.quoteAsset === symbol && el.status === "TRADING";
         })
-        pairLists = filteredSymbols.map(el => {
+        pairLists = filteredSymbols.map((el:{symbol:string}) => {
             return el.symbol
         })
 
