@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useState, useEffect } from 'react';
-import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList,AllCoinsPriceList } from "@/services/symbolsTypes";
+import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList, AllCoinsPriceList } from "@/services/symbolsTypes";
 
 
 import { getSymbolsFromBinance, getExchangesFromBinance } from "@/services/binance.service";
@@ -47,7 +47,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
         getSomeSymbols(getSymbolsFromOkx, 'okx');
         setLoading(prev => (prev + 4));
-        
+
 
     }, [])
 
@@ -85,7 +85,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         return setSymbolList(hugeListSymbols);
     }
 
-    const getPriceList = (symbol:string) => {
+    const getPriceList = (symbol: string) => {
 
         const hugeListPrices: AllCoinsPriceList = {};
 
@@ -94,23 +94,23 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
             // console.log(res);            
             // hugeListPrices.coinbase = res;
             setPriceObj(prev => addPrices(prev, { coinbase: res }));
-            console.log(priceObj);            
-
+            // console.log(priceObj);
         })
 
         getExchangesFromBinance(symbol).then(res => {
             // console.log(res);            
             // hugeListPrices.binance = res;
             setPriceObj(prev => addPrices(prev, { binance: res }));
-                        console.log(priceObj);            
-
+            // console.log(priceObj);
         })
+
+        
 
     }
 
 
     return (
-        <SymbolContext.Provider value={{ loading, symbolObj, symbolList, getPriceList,priceObj }}>
+        <SymbolContext.Provider value={{ loading, symbolObj, symbolList, getPriceList, priceObj }}>
             {children}
         </SymbolContext.Provider>
     );

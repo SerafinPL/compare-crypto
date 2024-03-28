@@ -3,7 +3,13 @@ import { useContext } from "react";
 
 import { SymbolContext } from "@/context/symbolsContext";
 
-const CryptoTable: React.FunctionComponent = () => {
+
+type cryptoTableProps = {
+    baseCoin: string;
+};
+
+
+const CryptoTable = ({ baseCoin }: cryptoTableProps) => {
 
     let context = useContext(SymbolContext);
     const loadingValue: number = context?.loading || 0;
@@ -43,8 +49,11 @@ const CryptoTable: React.FunctionComponent = () => {
                 <th>{++index}</th>
                 <td>{symbol}</td>
                 {tableContentSymbols.map(el => (<td key={`tSymbol-${symbol}-${el}`}>
-                    {innerSymbolList[symbol][el.toLowerCase()] ? okIco : nonIco}
-                  
+                    {symbol !== baseCoin &&
+                        innerPriceList[el.toLowerCase()] &&
+                        innerPriceList[el.toLowerCase()][symbol] ? Number(innerPriceList[el.toLowerCase()][symbol]).toFixed(8) : nonIco}
+                    {/* {innerSymbolList[symbol][el.toLowerCase()] ? okIco : nonIco} */}
+
                 </td>))}
             </tr>
         )
