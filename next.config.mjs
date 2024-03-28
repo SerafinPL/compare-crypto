@@ -12,6 +12,10 @@ const nextConfig = {
           destination: "https://api.kucoin.com/api/v2/symbols",
         },
         {
+          source: "/kucoin-currency_prices",
+          destination: "https://api.kucoin.com/api/v1/market/allTickers",
+        },
+        {
           source: "/kraken-currency_pairs",
           destination: "https://api.kucoin.com/api/v2/symbols",
         },
