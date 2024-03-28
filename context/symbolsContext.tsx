@@ -97,13 +97,8 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         })
 
         getExchangesFromKuCoin(symbol).then(res => {        
-            console.log(res);
-            
-            // setPriceObj(prev => addPrices(prev, { kucoin: res }));
+            setPriceObj(prev => addPrices(prev, { kucoin: res }));
         })
-
-
-
     }
 
 
