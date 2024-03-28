@@ -29,6 +29,11 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         okx: null,
     });
 
+    const [priceObj, setPriceObj] = useState<{}>({
+
+    });
+
+
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
 
     useEffect(() => {
@@ -62,6 +67,10 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         return Object.assign({}, prev, newSym);
     }
 
+    const addPrices: (prev: {}, newSym: {}) => {} = (prev, newSym) => {
+        return Object.assign({}, prev, newSym);
+    }
+
     const remakeSymbolsToList = () => {
 
         const hugeListSymbols: AllCoinsObjectList = {};
@@ -82,20 +91,26 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
 
         getExchangesFromCoinBase(symbol).then(res => {
-            console.log(res);            
-            hugeListPrices.coinbase = res;
+            // console.log(res);            
+            // hugeListPrices.coinbase = res;
+            setPriceObj(prev => addPrices(prev, { coinbase: res }));
+            console.log(priceObj);            
+
         })
 
         getExchangesFromBinance(symbol).then(res => {
-            console.log(res);            
-            hugeListPrices.binance = res;
+            // console.log(res);            
+            // hugeListPrices.binance = res;
+            setPriceObj(prev => addPrices(prev, { binance: res }));
+                        console.log(priceObj);            
+
         })
 
     }
 
 
     return (
-        <SymbolContext.Provider value={{ loading, symbolObj, symbolList, getPriceList }}>
+        <SymbolContext.Provider value={{ loading, symbolObj, symbolList, getPriceList,priceObj }}>
             {children}
         </SymbolContext.Provider>
     );

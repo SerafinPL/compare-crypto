@@ -73,7 +73,7 @@ export const getExchangesFromBinance: (symbol: string) => Promise<any> = (symbol
         return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.priceTicker}?symbols=[${paramsToSend}]`).then(res => {
             let answerObj:{ [key: string]:  number } = {};
             res.data.forEach((el:{symbol:string, price:number}) => {
-                answerObj[el.symbol] = el.price;
+                answerObj[el.symbol.substring(-4, el.symbol.length - 4)] = 1/el.price;
             })
             return answerObj;
         }, err => console.log);

@@ -8,6 +8,7 @@ const CryptoTable: React.FunctionComponent = () => {
     let context = useContext(SymbolContext);
     const loadingValue: number = context?.loading || 0;
     const innerSymbolList = context?.symbolList || {};
+    const innerPriceList = context?.priceObj || {};
 
     const tableContentSymbols = [
         'Binance',
@@ -43,6 +44,7 @@ const CryptoTable: React.FunctionComponent = () => {
                 <td>{symbol}</td>
                 {tableContentSymbols.map(el => (<td key={`tSymbol-${symbol}-${el}`}>
                     {innerSymbolList[symbol][el.toLowerCase()] ? okIco : nonIco}
+                  
                 </td>))}
             </tr>
         )

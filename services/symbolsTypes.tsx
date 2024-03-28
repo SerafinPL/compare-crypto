@@ -17,6 +17,7 @@ export type SymbolsContextType = {
     symbolObj: SymbolsObjectList;
     symbolList: { [key: string]: any; };
     getPriceList: (symbol:string) => any;
+    priceObj:{ [key: string]: any; };
 };
 
 export interface SymbolsObjectList {

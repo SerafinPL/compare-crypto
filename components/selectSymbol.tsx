@@ -25,6 +25,9 @@ const SelectSymbol = ({ baseCoin, setBaseCoin }: selectProps) => {
         context?.getPriceList(symbol);
     }
 
+    console.log(context?.priceObj);
+    
+
 
     const optionsRec = Object.keys(innerSymbolList).map(symbol => {
         if (symbol.search(searchInput.trim().toUpperCase()) > -1 || (dropDownOpen && !noEmpty)) {
