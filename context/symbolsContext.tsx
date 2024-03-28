@@ -1,13 +1,13 @@
 'use client';
 import { createContext, useState, useEffect } from 'react';
-import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList,AllCoinsPriceList } from "@/services/symbolsTypes";
+import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObjectList, AllCoinsPriceList } from "@/services/symbolsTypes";
 
 
 import { getSymbolsFromBinance, getExchangesFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase, getExchangesFromCoinBase } from "@/services/coinbase.service";
 import { getSymbolsFromGateIo } from "@/services/gateio.service";
 import { getSymbolsFromHuobi } from "@/services/huobi.service";
-import { getSymbolsFromKuCoin } from "@/services/kucoin.service";
+import { getSymbolsFromKuCoin, getExchangesFromKuCoin } from "@/services/kucoin.service";
 import { getSymbolsFromKraken } from "@/services/kraken.service";
 import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
 import { getSymbolsFromOkx } from "@/services/okx.service";
@@ -47,7 +47,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
         getSomeSymbols(getSymbolsFromOkx, 'okx');
         setLoading(prev => (prev + 4));
-        
+
 
     }, [])
 
@@ -85,32 +85,25 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         return setSymbolList(hugeListSymbols);
     }
 
-    const getPriceList = (symbol:string) => {
-
-        const hugeListPrices: AllCoinsPriceList = {};
+    const getPriceList = (symbol: string) => {
 
 
-        getExchangesFromCoinBase(symbol).then(res => {
-            // console.log(res);            
-            // hugeListPrices.coinbase = res;
+        getExchangesFromCoinBase(symbol).then(res => {       
             setPriceObj(prev => addPrices(prev, { coinbase: res }));
-            console.log(priceObj);            
-
         })
 
-        getExchangesFromBinance(symbol).then(res => {
-            // console.log(res);            
-            // hugeListPrices.binance = res;
+        getExchangesFromBinance(symbol).then(res => {        
             setPriceObj(prev => addPrices(prev, { binance: res }));
-                        console.log(priceObj);            
-
         })
 
+        getExchangesFromKuCoin(symbol).then(res => {        
+            setPriceObj(prev => addPrices(prev, { kucoin: res }));
+        })
     }
 
 
     return (
-        <SymbolContext.Provider value={{ loading, symbolObj, symbolList, getPriceList,priceObj }}>
+        <SymbolContext.Provider value={{ loading, symbolObj, symbolList, getPriceList, priceObj }}>
             {children}
         </SymbolContext.Provider>
     );

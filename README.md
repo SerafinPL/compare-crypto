@@ -1,20 +1,20 @@
 
 ## Compare Crypto
 
-
+[beta v0.9.+ online](https://compare-crypto-v0.vercel.app/dashboard)
 
 ###  Project Goal: 
 
 Comparison of current cryptocurrency prices on 7 centralized cryptocurrency exchanges. Sorting, filtering, results.
 The project assumes the creation of URL paths to the generated views.
 
-Scheduled Views for Version 1:
+### Scheduled Views for Version 1:
 
-1 List of Cryptocurrencies in a specific currency,
+#### 1 List of Cryptocurrencies in a specific currency, // at progress 3/7 compleat
 
-2 Single Cryptocurrency in various cryptocurrencies,
+#### 2 Single Cryptocurrency in various cryptocurrencies,
 
-3 Single Cryptocurrency in a specific cryptocurrency,
+#### 3 Single Cryptocurrency in a specific cryptocurrency,
 
 All three views with prices from all 7 exchanges.
 
