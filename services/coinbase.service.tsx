@@ -19,7 +19,7 @@ export const getExchangesFromCoinBase: (currency: string) => Promise<any> = (cur
         const dataObj = res.data.data.rates;
 
         let aswerObj:{ [key: string]:  number } = {};
-        Object.keys(res.data.data.rates).forEach(el => {
+        Object.keys(dataObj).forEach(el => {
             aswerObj[el] = 1 / dataObj[el]
         })
         
