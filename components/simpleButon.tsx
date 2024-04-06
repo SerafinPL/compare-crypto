@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 import { SymbolContext } from "@/context/symbolsContext";
 
-import { getTradeInfo, getSymbolsFromBinance } from "@/services/binance.service";
+
 import { MouseEventHandler } from "react";
 
 

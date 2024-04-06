@@ -8,7 +8,7 @@ const NaviBar: React.FunctionComponent = () => {
     const pathname = usePathname();
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const menuArray = ['Dashboard', 'Coin', 'Compare',];
+    const menuArray = ['Dashboard', ];//'Coin', 'Compare',
 
     const clickCloseHandler = () => {
         setDropdownOpen(false);
