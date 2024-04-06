@@ -5,7 +5,7 @@ import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObject
 
 import { getSymbolsFromBinance, getExchangesFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase, getExchangesFromCoinBase } from "@/services/coinbase.service";
-import { getSymbolsFromGateIo } from "@/services/gateio.service";
+import { getSymbolsFromGateIo,getExchangesFromGateIO } from "@/services/gateio.service";
 import { getSymbolsFromHuobi } from "@/services/huobi.service";
 import { getSymbolsFromKuCoin, getExchangesFromKuCoin } from "@/services/kucoin.service";
 import { getSymbolsFromKraken } from "@/services/kraken.service";
@@ -96,9 +96,29 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
             setPriceObj(prev => addPrices(prev, { binance: res }));
         })
 
+        getExchangesFromGateIO(symbol).then(res => {       
+            setPriceObj(prev => addPrices(prev, { gateio: res }));
+        })
+
+        // getExchangesFromHuobi(symbol).then(res => {        
+        //     setPriceObj(prev => addPrices(prev, { huobi: res }));
+        // })
+
         getExchangesFromKuCoin(symbol).then(res => {        
             setPriceObj(prev => addPrices(prev, { kucoin: res }));
         })
+
+        // getExchangesFromKraken(symbol).then(res => {       
+        //     setPriceObj(prev => addPrices(prev, { kraken: res }));
+        // })
+
+        // getExchangesCryptoCom(symbol).then(res => {        
+        //     setPriceObj(prev => addPrices(prev, { cryptocom: res }));
+        // })
+
+        // getExchangesFromOkx(symbol).then(res => {        
+        //     setPriceObj(prev => addPrices(prev, { okx: res }));
+        // })
     }
 
 

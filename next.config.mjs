@@ -5,7 +5,11 @@ const nextConfig = {
       return [
         {
           source: "/gateio-currency_pairs",
-          destination: "https://api.gateio.ws/api/v4/flash_swap/currency_pairs",
+          destination: "https://api.gateio.ws/api/v4/spot/currency_pairs",
+        },
+        {
+          source: "/gateio-tickers",
+          destination: "https://api.gateio.ws/api/v4/spot/tickers",
         },
         {
           source: "/kucoin-currency_pairs",
