@@ -9,8 +9,8 @@ import { getSymbolsFromGateIo, getExchangesFromGateIO } from "@/services/gateio.
 import { getSymbolsFromHuobi, getExchangesFromHuobi } from "@/services/huobi.service";
 import { getSymbolsFromKuCoin, getExchangesFromKuCoin } from "@/services/kucoin.service";
 import { getSymbolsFromKraken, getExchangesFromKraken } from "@/services/kraken.service";
-import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
-import { getSymbolsFromOkx } from "@/services/okx.service";
+import { getSymbolsFromCryptoCom, getExchangesFromCryptoCom } from "@/services/cryptoCom.service";
+import { getSymbolsFromOkx, getExchangesFromOkx } from "@/services/okx.service";
 
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
 
@@ -112,13 +112,13 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
             setPriceObj(prev => addPrices(prev, { kraken: res }));
         })
 
-        // getExchangesCryptoCom(symbol).then(res => {        
-        //     setPriceObj(prev => addPrices(prev, { cryptocom: res }));
-        // })
+        getExchangesFromCryptoCom(symbol).then(res => {        
+            setPriceObj(prev => addPrices(prev, { cryptocom: res }));
+        })
 
-        // getExchangesFromOkx(symbol).then(res => {        
-        //     setPriceObj(prev => addPrices(prev, { okx: res }));
-        // })
+        getExchangesFromOkx(symbol).then(res => {        
+            setPriceObj(prev => addPrices(prev, { okx: res }));
+        })
     }
 
 
