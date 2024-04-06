@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { basisApi, symbolListAnswer } from "@/services/symbolsTypes";
-import { uniGetSymbolList, dataSymbols } from "./ uniFunc";
+import { uniGetSymbolList, dataSymbols,uniRemakePricesSymbolList,uniRemakeToPriceObj } from "./ uniFunc";
 
 const baseApi: basisApi = {
     domain: 'https://api.huobi.pro/',
@@ -15,19 +15,13 @@ export const getSymbolsFromHuobi: () => Promise<any> = () => {
 
 export const getExchangesFromHuobi: (currency: string) => Promise<any> = (currency) => {
     return axios.get(`${baseApi.domain}${baseApi.market}`).then(res => {
-        const filteredSymbols = res.data.data.filter((el: { symbol: string }) => {
-            return el.symbol.substring(el.symbol.length - currency.length , el.symbol.length) == currency.toLowerCase();
-        });
 
-        let answerObj: { [key: string]: number } = {};
-        filteredSymbols.forEach((el: { symbol: string, ask: number }) => {
-            answerObj[el.symbol.substring(0, el.symbol.length - currency.length).toUpperCase()] = el.ask;
-        });  
+        const filteredSymbols = uniRemakePricesSymbolList(res.data.data,'symbol',currency);
 
-        return answerObj;
+        return uniRemakeToPriceObj(filteredSymbols, 'symbol', 'ask', currency, 0);
+
     }, err => console.log);
 }
-
 
 
 const setHuobiSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {

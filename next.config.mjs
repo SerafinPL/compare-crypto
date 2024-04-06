@@ -21,8 +21,13 @@ const nextConfig = {
         },
         {
           source: "/kraken-currency_pairs",
-          destination: "https://api.kucoin.com/api/v2/symbols",
+          destination: "https://api.kraken.com/0/public/Assets",
         },
+        {
+          source: "/kraken-ticker",
+          destination: "https://api.kraken.com/0/public/Ticker",
+        },
+        
       ];
     },
   

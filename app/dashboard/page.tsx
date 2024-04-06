@@ -6,7 +6,7 @@ import SelectSymbol from "@/components/selectSymbol";
 
 const Dashboard = () => {
 
-  const [baseCoin, setBaseCoin] = useState<string>('choose crypto');  
+  const [baseCoin, setBaseCoin] = useState<string>('choose crypto -->');  
 
   return (
     <div>
