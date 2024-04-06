@@ -12,6 +12,8 @@ export type listKeyWithName = {
     [key: string]: string;
 }
 
+export type answerPrice = { [key: string]: number }
+
 export type SymbolsContextType = {
     loading: number;
     symbolObj: SymbolsObjectList;
@@ -37,5 +39,5 @@ export type AllCoinsObjectList = {
 };
 
 export type AllCoinsPriceList = {
-    [key: string]: { [key: string]: number };
+    [key: string]: answerPrice;
 };

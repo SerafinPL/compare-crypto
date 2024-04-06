@@ -5,12 +5,12 @@ import { symbolListAnswer, SymbolsContextType, SymbolsObjectList, AllCoinsObject
 
 import { getSymbolsFromBinance, getExchangesFromBinance } from "@/services/binance.service";
 import { getSymbolsFromCoinBase, getExchangesFromCoinBase } from "@/services/coinbase.service";
-import { getSymbolsFromGateIo } from "@/services/gateio.service";
-import { getSymbolsFromHuobi } from "@/services/huobi.service";
+import { getSymbolsFromGateIo, getExchangesFromGateIO } from "@/services/gateio.service";
+import { getSymbolsFromHuobi, getExchangesFromHuobi } from "@/services/huobi.service";
 import { getSymbolsFromKuCoin, getExchangesFromKuCoin } from "@/services/kucoin.service";
-import { getSymbolsFromKraken } from "@/services/kraken.service";
-import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
-import { getSymbolsFromOkx } from "@/services/okx.service";
+import { getSymbolsFromKraken, getExchangesFromKraken } from "@/services/kraken.service";
+import { getSymbolsFromCryptoCom, getExchangesFromCryptoCom } from "@/services/cryptoCom.service";
+import { getSymbolsFromOkx, getExchangesFromOkx } from "@/services/okx.service";
 
 export const SymbolContext = createContext<SymbolsContextType | null>(null);
 
@@ -88,16 +88,36 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
     const getPriceList = (symbol: string) => {
 
 
-        getExchangesFromCoinBase(symbol).then(res => {       
+        getExchangesFromCoinBase(symbol).then(res => {
             setPriceObj(prev => addPrices(prev, { coinbase: res }));
         })
 
-        getExchangesFromBinance(symbol).then(res => {        
+        getExchangesFromBinance(symbol).then(res => {
             setPriceObj(prev => addPrices(prev, { binance: res }));
         })
 
-        getExchangesFromKuCoin(symbol).then(res => {        
+        getExchangesFromGateIO(symbol).then(res => {
+            setPriceObj(prev => addPrices(prev, { gateio: res }));
+        })
+
+        getExchangesFromHuobi(symbol).then(res => {
+            setPriceObj(prev => addPrices(prev, { huobi: res }));
+        })
+
+        getExchangesFromKuCoin(symbol).then(res => {
             setPriceObj(prev => addPrices(prev, { kucoin: res }));
+        })
+
+        getExchangesFromKraken(symbol).then(res => {
+            setPriceObj(prev => addPrices(prev, { kraken: res }));
+        })
+
+        getExchangesFromCryptoCom(symbol).then(res => {        
+            setPriceObj(prev => addPrices(prev, { cryptocom: res }));
+        })
+
+        getExchangesFromOkx(symbol).then(res => {        
+            setPriceObj(prev => addPrices(prev, { okx: res }));
         })
     }
 

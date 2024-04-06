@@ -12,32 +12,10 @@ const baseApi: basisApi = {
     info: 'exchangeInfo',
 }
 
-
-export const coinList: string[] = ['BTC', 'ETH', 'PAXG', 'BCH', 'SOL',
-    'LTC', 'AVAX', 'ETC', 'INJ', 'TIA',
-    'ATOM', 'FIL', 'NEAR', 'OSMO', 'XNO',
-    'KAVA', 'STORJ', '1INCH', 'XRP',
-    'ONT', 'ALGO', 'ASTR', 'DAR', 'TRX', 'DOGE'];
-
-export const stringListT: string[] = coinList.map(el => el + 'USDT');
-
-export const getTradeInfo: () => any = () => {
-    let paramsToSend: string = ``;
-
-    stringListT.forEach((param: string, index: number) => {
-        if (index === 0) {
-            paramsToSend += `%22${param}%22`
-        } else {
-            paramsToSend += `,%22${param}%22`
-        }
-    })
-    return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.bookTickers}?symbols=[${paramsToSend}]`).then(res => res.data, err => console.log);
-}
-
 export const getSymbolsFromBinance: () => Promise<any> = () => {
 
     return axios.get(`${baseApi.base}${baseApi.domainSApi}${baseApi.convert}${baseApi.info}`).then(res => {
-        return setBinanceSymbols(res.data)
+        return setBinanceSymbols(res.data);
     }, err => console.log);
 }
 
@@ -47,8 +25,6 @@ const setBinanceSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
 
 export const getExchangesFromBinance: (baseSymbol: string) => Promise<any> = (baseSymbol) => {
 
-
-
     return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.info}`).then(res => {
         let pairLists = [];
         
@@ -56,7 +32,7 @@ export const getExchangesFromBinance: (baseSymbol: string) => Promise<any> = (ba
             return el.quoteAsset == baseSymbol && el.status === "TRADING";
         })
         pairLists = filteredSymbols.map((el:{symbol:string}) => {
-            return el.symbol
+            return el.symbol;
         })
 
         let paramsToSend = '';

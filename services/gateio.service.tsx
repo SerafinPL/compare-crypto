@@ -1,7 +1,7 @@
 
 import axios from "axios";
-import { basisApi,symbolListAnswer } from "@/services/symbolsTypes";
-import { uniGetSymbolList,dataSymbols } from "./ uniFunc";
+import { basisApi, symbolListAnswer } from "@/services/symbolsTypes";
+import { uniGetSymbolList, dataSymbols,uniRemakePricesSymbolList,uniRemakeToPriceObj } from "./ uniFunc";
 
 const baseApi: basisApi = {
     domain: 'https://api.gateio.ws/api/v4/',
@@ -13,6 +13,14 @@ export const getSymbolsFromGateIo: () => Promise<any> = () => {
 }
 
 const setGateIoSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
-    return uniGetSymbolList(data,'buy_currency','sell_currency')
+    return uniGetSymbolList(data, 'buy_currency', 'sell_currency')
 }
 
+export const getExchangesFromGateIO: (currency: string) => Promise<any> = (currency) => {
+    return axios.get('/gateio-tickers').then(res => {
+
+        const filteredSymbols = uniRemakePricesSymbolList(res.data,'currency_pair',currency);
+        return uniRemakeToPriceObj(filteredSymbols, 'currency_pair', 'last', currency, 1);
+
+    }, err => console.log);
+}
