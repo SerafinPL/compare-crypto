@@ -8,7 +8,7 @@ import { getSymbolsFromCoinBase, getExchangesFromCoinBase } from "@/services/coi
 import { getSymbolsFromGateIo, getExchangesFromGateIO } from "@/services/gateio.service";
 import { getSymbolsFromHuobi, getExchangesFromHuobi } from "@/services/huobi.service";
 import { getSymbolsFromKuCoin, getExchangesFromKuCoin } from "@/services/kucoin.service";
-import { getSymbolsFromKraken } from "@/services/kraken.service";
+import { getSymbolsFromKraken, getExchangesFromKraken } from "@/services/kraken.service";
 import { getSymbolsFromCryptoCom } from "@/services/cryptoCom.service";
 import { getSymbolsFromOkx } from "@/services/okx.service";
 
@@ -108,9 +108,9 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
             setPriceObj(prev => addPrices(prev, { kucoin: res }));
         })
 
-        // getExchangesFromKraken(symbol).then(res => {       
-        //     setPriceObj(prev => addPrices(prev, { kraken: res }));
-        // })
+        getExchangesFromKraken(symbol).then(res => {
+            setPriceObj(prev => addPrices(prev, { kraken: res }));
+        })
 
         // getExchangesCryptoCom(symbol).then(res => {        
         //     setPriceObj(prev => addPrices(prev, { cryptocom: res }));
