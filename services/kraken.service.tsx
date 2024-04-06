@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { basisApi, symbolListAnswer } from "@/services/symbolsTypes";
+import { basisApi, symbolListAnswer,answerPrice } from "@/services/symbolsTypes";
 import { uniGetSymbolList, dataSymbols, uniRemakePricesSymbolList, uniRemakeToPriceObj } from "./ uniFunc";
 import { log } from "console";
 
@@ -28,9 +28,8 @@ export const getExchangesFromKraken: (currency: string) => Promise<any> = (curre
             return el.substring(el.length - currency.length, el.length).toLowerCase() === currency.toLowerCase();
         });
 
-        const answer: { [key: string]: number } = {};
-
-        const symbolsArray = filteredSymbolsKeys.forEach((pair) => {
+        const answer: answerPrice = {};
+        filteredSymbolsKeys.forEach((pair) => {
             answer[pair.substring(0, pair.length - currency.length).toUpperCase()] = responseData[pair].a[0];
         })
 

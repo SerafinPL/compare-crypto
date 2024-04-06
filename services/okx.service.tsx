@@ -23,7 +23,7 @@ export const getExchangesFromOkx: (currency: string) => Promise<any> = (currency
     return axios.get(`${baseApi.domain}${baseApi.ticker}`).then(res => {
 
         const responseData = res.data.data.map((rec: { [key: string]: any; }) => {
-            return { symbol: rec.instId.substring(0, rec.instId.length - 5), price: rec.last }
+            return { symbol: rec.instId.substring(0, rec.instId.length - 5), price: rec.last };
         });
 
         const filteredSymbols = uniRemakePricesSymbolList(responseData, 'symbol', currency);
