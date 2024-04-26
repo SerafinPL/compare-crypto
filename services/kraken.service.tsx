@@ -15,6 +15,7 @@ export const getSymbolsFromKraken: () => Promise<any> = () => {
 }
 
 const setKrakenSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
+    console.log(data);
     return uniGetSymbolList(data, 'baseCurrency', 'quoteCurrency');
 }
 

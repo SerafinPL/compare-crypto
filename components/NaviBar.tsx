@@ -14,9 +14,6 @@ const NaviBar: React.FunctionComponent = () => {
         setDropdownOpen(false);
     }
 
-    console.log();
-
-
     const menuView = menuArray.map(el => <li key={`menuItem${el.toLowerCase()}`} onClick={() => setDropdownOpen(false)}>
         <Link href={`/${el.toLowerCase()}`} className={`${pathname == el.toLowerCase() ? 'active' : ''}`}
             onClick={clickCloseHandler}>
