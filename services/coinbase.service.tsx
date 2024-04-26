@@ -8,10 +8,12 @@ const baseApi: basisApi = {
     info: 'currencies/crypto',
     exchanges: 'exchange-rates',
     prices: '/prices',
+    products: '/products',
+    domainExchange: 'https://api.exchange.coinbase.com'
 }
 
 export const getSymbolsFromCoinBase: () => Promise<any> = () => {
-    return axios.get(`${baseApi.domain}${baseApi.info}`).then(res => setCoinBaseSymbols(res.data.data), err => console.log);
+    return axios.get(`${baseApi.domainExchange}${baseApi.products}`).then(res => setCoinBaseSymbols(res.data), err => console.log);
 }
 
 export const getExchangesFromCoinBase: (currency: string) => Promise<any> = (currency) => {
@@ -28,6 +30,8 @@ export const getExchangesFromCoinBase: (currency: string) => Promise<any> = (cur
 }
 
 const setCoinBaseSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
-    return uniGetSymbolList(data, 'code', 'code');
+    console.log(data);
+    
+    return uniGetSymbolList(data, 'base_currency', 'quote_currency');
 }
 

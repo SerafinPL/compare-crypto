@@ -10,17 +10,17 @@ The project assumes the creation of URL paths to the generated views.
 
 ### Scheduled Views for Version 1:
 
-#### 1 List of Cryptocurrencies in a specific currency, // at progress 3/7 compleat
+#### 🟩 1 List of Cryptocurrencies in a specific currency, // ✅ basic version completed
 
-#### 2 Single Cryptocurrency in various cryptocurrencies,
+#### 🟢 2 Single Cryptocurrency in various cryptocurrencies, 
 
-#### 3 Single Cryptocurrency in a specific cryptocurrency,
+#### ⏸ 3 Single Cryptocurrency in a specific cryptocurrency,
 
-All three views with prices from all 7 exchanges.
+### All three views with prices from all 7 exchanges.
 
-Visual features:
-Two light/dark themes,
-Intuitive interface,
+#### Visual features:
+#### Two light/dark themes,
+#### Intuitive interface,
 
 ### Getting Started
 
