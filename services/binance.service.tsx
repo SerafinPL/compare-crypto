@@ -26,12 +26,11 @@ const setBinanceSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
 export const getExchangesFromBinance: (baseSymbol: string) => Promise<any> = (baseSymbol) => {
 
     return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.info}`).then(res => {
-        let pairLists = [];
         
         const filteredSymbols = res.data.symbols.filter((el:{quoteAsset:string, status:string})=> {
             return el.quoteAsset == baseSymbol && el.status === "TRADING";
         })
-        pairLists = filteredSymbols.map((el:{symbol:string}) => {
+        let pairLists = filteredSymbols.map((el:{symbol:string}) => {
             return el.symbol;
         })
 

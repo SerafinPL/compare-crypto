@@ -29,9 +29,7 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         okx: null,
     });
 
-    const [priceObj, setPriceObj] = useState<{}>({
-
-    });
+    const [priceObj, setPriceObj] = useState<{}>({});
 
 
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
@@ -47,7 +45,6 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
         getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
         getSomeSymbols(getSymbolsFromOkx, 'okx');
         setLoading(prev => (prev + 4));
-
 
     }, [])
 

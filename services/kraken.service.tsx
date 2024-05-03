@@ -11,7 +11,7 @@ const baseApi: basisApi = {
 }
 
 export const getSymbolsFromKraken: () => Promise<any> = () => {
-    return axios.get('/kraken-currency_pairs').then(res => setKrakenSymbols(res.data.data), err => console.log);
+    return axios.get('/kraken-currency_pairs').then(res => setKrakenSymbols(res.data), err => console.log);
 }
 
 const setKrakenSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
