@@ -4,7 +4,6 @@ import "./globals.css";
 import NaviBar from "@/components/NaviBar";
 import ProvSymbolsContext from "@/context/symbolsContext";
 import { Suspense } from 'react';
-import Page from "./page";
 import Loading from "@/app/loading";
 
 
@@ -27,7 +26,7 @@ export default function RootLayout({
           <div className="min-w-full min-h-screen	">
             <NaviBar />
             <Suspense fallback={<Loading />}>
-              <Page />
+              {children}
             </Suspense>
           </div>
         </ProvSymbolsContext>

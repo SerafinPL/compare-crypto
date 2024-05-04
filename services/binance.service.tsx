@@ -1,4 +1,3 @@
-import { cache } from 'react';
 import axios from "axios";
 import { basisApi, symbolListAnswer, listKey } from "@/services/symbolsTypes";
 import { uniGetSymbolList, dataSymbols } from "./ uniFunc";
@@ -27,11 +26,11 @@ const setBinanceSymbols: (data: dataSymbols) => symbolListAnswer = (data) => {
 export const getExchangesFromBinance: (baseSymbol: string) => Promise<any> = (baseSymbol) => {
 
     return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.info}`).then(res => {
-        
-        const filteredSymbols = res.data.symbols.filter((el:{quoteAsset:string, status:string})=> {
+
+        const filteredSymbols = res.data.symbols.filter((el: { quoteAsset: string, status: string }) => {
             return el.quoteAsset == baseSymbol && el.status === "TRADING";
         })
-        let pairLists = filteredSymbols.map((el:{symbol:string}) => {
+        let pairLists = filteredSymbols.map((el: { symbol: string }) => {
             return el.symbol;
         })
 
@@ -46,29 +45,36 @@ export const getExchangesFromBinance: (baseSymbol: string) => Promise<any> = (ba
         })
 
         return axios.get(`${baseApi.base}${baseApi.domainFApi}${baseApi.priceTicker}?symbols=[${paramsToSend}]`).then(res => {
-            let answerObj:{ [key: string]:  number } = {};
-            res.data.forEach((el:{symbol:string, price:number}) => {
+            let answerObj: { [key: string]: number } = {};
+            res.data.forEach((el: { symbol: string, price: number }) => {
                 answerObj[el.symbol.substring(-baseSymbol.length, el.symbol.length - baseSymbol.length)] = el.price;
             })
             return answerObj;
         }, err => console.log);
 
     }, err => console.log);
-
-
 }
-
-
 
 //**  For Serwer reasons **/
 
-export const getAllCoinsBinance: () => Promise<any> = cache(async () => {
+type BinanceRes = { toAsset: string, fromAsset: string };
 
-    return axios.get(`${baseApi.base}${baseApi.domainSApi}${baseApi.convert}${baseApi.info}`,{params:{fromAsset:"USDT"}}).then(res => {
-        
-        console.log(res);
-        
+export const getAllCoinsBinance: () => Promise<any> = () => {
 
-        return setBinanceSymbols(res.data);
+    return axios.get(`${baseApi.base}${baseApi.domainSApi}${baseApi.convert}${baseApi.info}`, { params: { fromAsset: "USDT" } }).then(res => {
+
+        const answer: BinanceRes[] = [{ toAsset: "USDT", fromAsset: "USDT" }];
+        answer.push(...res.data);
+        return convertBinanceSymbolsToList(answer);
     }, err => console.log);
-})
+}
+
+
+const convertBinanceSymbolsToList = (answer: BinanceRes[]) => {
+    const list: listKey = {}
+    answer.forEach((element: BinanceRes) => {
+        list[element.toAsset] = true;
+    });
+
+    return list;
+};

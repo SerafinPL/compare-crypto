@@ -33,24 +33,24 @@ const ProvSymbolsContext: React.FC<{ children: React.ReactNode }> = ({ children 
 
 
     const [symbolList, setSymbolList] = useState<{ [key: string]: {}; }>({});
+    // ?? Switched OFF
+    // useEffect(() => {
 
-    useEffect(() => {
+    //     getSomeSymbols(getSymbolsFromBinance, 'binance');
+    //     getSomeSymbols(getSymbolsFromCoinBase, 'coinbase');
+    //     getSomeSymbols(getSymbolsFromGateIo, 'gateio');
+    //     getSomeSymbols(getSymbolsFromHuobi, 'huobi');
+    //     getSomeSymbols(getSymbolsFromKuCoin, 'kucoin');
+    //     getSomeSymbols(getSymbolsFromKraken, 'kraken');
+    //     getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
+    //     getSomeSymbols(getSymbolsFromOkx, 'okx');
+    //     setLoading(prev => (prev + 4));
 
-        getSomeSymbols(getSymbolsFromBinance, 'binance');
-        getSomeSymbols(getSymbolsFromCoinBase, 'coinbase');
-        getSomeSymbols(getSymbolsFromGateIo, 'gateio');
-        getSomeSymbols(getSymbolsFromHuobi, 'huobi');
-        getSomeSymbols(getSymbolsFromKuCoin, 'kucoin');
-        getSomeSymbols(getSymbolsFromKraken, 'kraken');
-        getSomeSymbols(getSymbolsFromCryptoCom, 'cryptocom');
-        getSomeSymbols(getSymbolsFromOkx, 'okx');
-        setLoading(prev => (prev + 4));
+    // }, [])
 
-    }, [])
-
-    useEffect(() => {
-        remakeSymbolsToList();
-    }, [symbolObj]);
+    // useEffect(() => {
+    //     remakeSymbolsToList();
+    // }, [symbolObj]);
 
     const getSomeSymbols: (getSymbol: () => any, symbol: string) => boolean = (getSymbol, symbol) => {
         return getSymbol().then((res: symbolListAnswer) => {
