@@ -45,6 +45,10 @@ const CryptoTable = ({ baseCoin }: cryptoTableProps) => {
 
     const tableView = Object.keys(innerSymbolList).map((symbol, index) => {
 
+        console.log(innerSymbolList);
+        console.log(innerPriceList);
+
+        console.log(symbol);
 
         
         
