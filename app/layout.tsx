@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NaviBar from "@/components/NaviBar";
 import ProvSymbolsContext from "@/context/symbolsContext";
+import { Suspense } from 'react';
+import Page from "./page";
+import Loading from "@/app/loading";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +26,9 @@ export default function RootLayout({
         <ProvSymbolsContext>
           <div className="min-w-full min-h-screen	">
             <NaviBar />
-            {children}
+            <Suspense fallback={<Loading />}>
+              <Page />
+            </Suspense>
           </div>
         </ProvSymbolsContext>
       </body>

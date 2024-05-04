@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import axios from "axios";
 import { basisApi, symbolListAnswer, listKey } from "@/services/symbolsTypes";
 import { uniGetSymbolList, dataSymbols } from "./ uniFunc";
@@ -56,3 +57,18 @@ export const getExchangesFromBinance: (baseSymbol: string) => Promise<any> = (ba
 
 
 }
+
+
+
+//**  For Serwer reasons **/
+
+export const getAllCoinsBinance: () => Promise<any> = cache(async () => {
+
+    return axios.get(`${baseApi.base}${baseApi.domainSApi}${baseApi.convert}${baseApi.info}`,{params:{fromAsset:"USDT"}}).then(res => {
+        
+        console.log(res);
+        
+
+        return setBinanceSymbols(res.data);
+    }, err => console.log);
+})
